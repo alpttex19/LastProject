@@ -17,46 +17,11 @@
 from gui import WeatherGUI
 from Readfiles import *
 
-# 读取城市代码
-# def get_city_code():
-#     try:
-#         df = pd.read_excel('D:\VS_code\Python_Pro\LastProject\AMap_adcode_citycode.xlsx', 
-#                            usecols=range(3), dtype=str, nrows=3242)
-        
-#         city_codes = {}
-#         for index, row in df.iterrows():
-#             city_name = row['中文名']
-#             adcode = row['adcode']
-#             citycode = row['citycode']
-#             city_codes[city_name] = {'adcode': adcode, 'citycode': citycode}
-#         return city_codes
-#     except FileNotFoundError:
-#         print("File not found. Please check the file path.")
-#         return {}
-#     except Exception as e:
-#         print(f"An error occurred: {e}")
-#         return {}
 
 def main():
-    international_countrys_list = international_country_info() # international city list
-    city_code_data = national_city_info()              # china city list
-    GUI = WeatherGUI(city_code_data, )
-
-    # city_code = get_city_code()
-    # city = input('请输入城市名称：')
-    # while city not in city_code:
-    #     print('输入城市名称有误')
-    #     city = input('请重新输入：')
-    
-    # cityadcode = city_code[city].get('adcode')
-    # citycitycode = city_code[city].get('citycode')
-    # print(cityadcode)
-    # print(citycitycode)
-    # weather_api = WeatherAPI(cityadcode)
-    # weather = weather_api.get_weather(city, weather_api.date)
-    # print('城市：{}\n日期：{}\n温度：{}\n湿度：{}\n风力风向：{}'
-    #       .format(weather.city, weather.date, weather.temperature, weather.humidity, weather.wind))
-
+    international_countrys = international_country_info() # international city list
+    cn_citys = national_city_info()              # china city list
+    GUI = WeatherGUI(cn_citys, international_countrys)
 
 if __name__ == '__main__':
     main()

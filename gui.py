@@ -7,13 +7,14 @@ from Weather import WeatherGet, MyFavoriteCity
 # GUI界面
 class WeatherGUI:
     # 初始化
-    def __init__(self,city_code_data):
+    def __init__(self,cn_citys, international_countrys):
         self.root = tk.Tk()
         self.root.title('天气预报')
         self.root.geometry('500x400')
         self.root.resizable(False, False)
         self.root.update()
-        self.city_code = city_code_data
+        self.city_code = cn_citys
+        self.international_countrys = international_countrys
         self.city = tk.StringVar()  # 用来存储用户选择的城市名
         self.city.set('北京市')
         self.date = tk.StringVar()
