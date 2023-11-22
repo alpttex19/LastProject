@@ -15,22 +15,7 @@
 
 
 from gui import WeatherGUI
-
-
-
-def import_city_code():
-    # 从city_codes.txt文件中读入城市中文名、adcode和citycode
-    city_code = {}
-    with open('city_codes.txt', 'r', encoding='utf-8') as f:
-        for line in f.readlines():
-            line = line.strip()
-            if len(line.split()) == 2:
-                city_name, adcode = line.split()
-                citycode = ''
-            else:
-                city_name, adcode, citycode = line.split()
-            city_code[city_name] = {'adcode': adcode, 'citycode': citycode}
-    return city_code
+from Readfiles import *
 
 # 读取城市代码
 # def get_city_code():
@@ -53,8 +38,9 @@ def import_city_code():
 #         return {}
 
 def main():
-    city_code_data = import_city_code()
-    GUI = WeatherGUI(city_code_data)
+    international_countrys_list = international_country_info() # international city list
+    city_code_data = national_city_info()              # china city list
+    GUI = WeatherGUI(city_code_data, )
 
     # city_code = get_city_code()
     # city = input('请输入城市名称：')
