@@ -2,117 +2,176 @@ import tkinter as tk
 from tkinter import ttk
 import datetime
 from tkinter import messagebox
-from Weather import WeatherGet, MyFavoriteCity
+from Weather import WeatherGet, MyFavoriteCity, Weather, GlobalWeatherGet
+from Readfiles import national_citys, citys_lat_lon
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
 
 # GUI界面
 class WeatherGUI:
     # 初始化
     def __init__(self,cn_citys, international_countrys):
         self.root = tk.Tk()
+        self.root.geometry('600x480')
         self.root.title('天气预报')
-        self.root.geometry('500x400')
-        self.root.resizable(False, False)
-        self.root.update()
+        self.maincanvas = tk.Canvas(self.root, width=600, height=480, bg='white')
+        self.secondcanvas = tk.Canvas(self.root, width=600, height=480, bg='white')
+        self.myfavcanvas = tk.Canvas(self.root, width=600, height=300, bg='white')
         self.city_code = cn_citys
-        self.international_countrys = international_countrys
         self.city = tk.StringVar()  # 用来存储用户选择的城市名
         self.city.set('北京市')
         self.date = tk.StringVar()
         self.date.set(datetime.datetime.now().strftime('%Y-%m-%d'))
         self.weather_get = WeatherGet(self.city_code[self.city.get()]['adcode'])
         self.weather = self.weather_get.get_weather(self.city.get(), self.date.get())
+
+        self.international_countrys = international_countrys
+        self.country = tk.StringVar()  # 用来存储用户选择的国家名
+        self.country.set('CN')
+        self.country2city = tk.StringVar()  # 用来存储用户选择的城市名
+        self.country2city.set('Beijing')
+
+        self.citylat, self.citylon = citys_lat_lon(self.international_countrys, self.country.get(), self.country2city.get())
+        self.globalweather_get = GlobalWeatherGet(self.citylat, self.citylon)
+        self.international_time = tk.StringVar()
+        self.international_time.set(self.globalweather_get.timelist[0])
+        self.globweather = self.globalweather_get.get_weather(self.international_time.get())
+
         self.my_favorite_city = MyFavoriteCity()
         self.create_widgets()  # 创建控件
         self.root.mainloop()  # 进入主循环
 
     def create_widgets(self):
-        # 城市名称
-        self.city_label = tk.Label(self.root, text='城市：')
-        self.city_label.place(x=20, y=20, width=50, height=20)
-        self.city_combobox = ttk.Combobox(self.root, textvariable=self.city, state='readonly')
-        self.city_combobox['values'] = list(self.city_code.keys())
-        self.city_combobox.place(x=80, y=20, width=100, height=20)
-        self.city_combobox.bind('<<ComboboxSelected>>', self.city_combobox_selected)
-
-        self.date_label = tk.Label(self.root, text='日期：')
-        self.date_label.place(x=260, y=20, width=50, height=20)
-        self.date_combobox = ttk.Combobox(self.root, textvariable=self.date, state='readonly')
-        self.date_combobox['values'] = [datetime.datetime.now().strftime('%Y-%m-%d'), 
-                                        (datetime.datetime.now() + datetime.timedelta(days=1)).strftime('%Y-%m-%d'), 
-                                        (datetime.datetime.now() + datetime.timedelta(days=2)).strftime('%Y-%m-%d'),
-                                        (datetime.datetime.now() + datetime.timedelta(days=3)).strftime('%Y-%m-%d'),]
-        self.date_combobox.place(x=320, y=20, width=100, height=20)
-        self.date_combobox.bind('<<ComboboxSelected>>', self.date_combobox_selected)
-
-        # 星期、温度、湿度、风力风向、白天天气、夜间天气
-        self.week_label = tk.Label(self.root, text='星期：')
-        self.week_label.place(x=20, y=60, width=50, height=20)
-        self.week_entry = tk.Entry(self.root)
-        self.week_entry.place(x=80, y=60, width=100, height=20)
-        self.week_entry.insert(0, self.weather.week)
-
-        self.temperature_label = tk.Label(self.root, text='温度：')
-        self.temperature_label.place(x=260, y=60, width=50, height=20)
-        self.temperature_entry = tk.Entry(self.root)
-        self.temperature_entry.place(x=320, y=60, width=100, height=20)
-        self.temperature_entry.insert(0, self.weather.temperature)  
-
-        self.humidity_label = tk.Label(self.root, text='湿度：')
-        self.humidity_label.place(x=20, y=100, width=50, height=20)
-        self.humidity_entry = tk.Entry(self.root)
-        self.humidity_entry.place(x=80, y=100, width=100, height=20)
-        self.humidity_entry.insert(0, self.weather.humidity)
-
-        self.wind_label = tk.Label(self.root, text='风力风向：')
-        self.wind_label.place(x=260, y=100, width=60, height=20)
-        self.wind_entry = tk.Entry(self.root)
-        self.wind_entry.place(x=320, y=100, width=100, height=20)
-        self.wind_entry.insert(0, self.weather.wind)
-
-        self.dayweather_label = tk.Label(self.root, text='白天天气：')
-        self.dayweather_label.place(x=20, y=140, width=60, height=20)
-        self.dayweather_entry = tk.Entry(self.root)
-        self.dayweather_entry.place(x=80, y=140, width=100, height=20)
-        self.dayweather_entry.insert(0, self.weather.dayweather)
-
-        self.nightweather_label = tk.Label(self.root, text='夜间天气：')
-        self.nightweather_label.place(x=260, y=140, width=60, height=20)
-        self.nightweather_entry = tk.Entry(self.root)
-        self.nightweather_entry.place(x=320, y=140, width=100, height=20)
-        self.nightweather_entry.insert(0, self.weather.nightweather)
-
-
-        # select the city by inter city name
-        self.citysearch_label = tk.Label(self.root, text='城市搜索：')
-        self.citysearch_label.place(x=20, y=180, width=60, height=20)
-        self.citysearch_entry = tk.Entry(self.root)
-        self.citysearch_entry.place(x=80, y=180, width=120, height=20)
-        self.citysearch_button = tk.Button(self.root, text='搜索', command=self.citysearch_button_clicked)
-        self.citysearch_button.place(x=200, y=180, width=40, height=20)
-        self.citysearch_entry.bind('<KeyRelease>', self.search)
-        # 创建一个列表框来显示搜索结果
-        self.search_results_listbox = tk.Listbox(self.root)
-        self.search_results_listbox.place(x=80, y=200, width=120, height=40)
-        self.search_results_listbox.bind('<<ListboxSelect>>', self.on_select)
-        # 创建一个滚动条
-        scrollbar = ttk.Scrollbar(self.root, orient='vertical', command=self.search_results_listbox.yview)
-        scrollbar.place(x=220, y=200, width=20, height=40)
-        self.search_results_listbox['yscrollcommand'] = scrollbar.set
-
+        # 默认窗口选择 国内
+        self.national()
         # 菜单栏
         self.menu = tk.Menu(self.root)
         self.root.config(menu=self.menu)
         self.favorite_menu = tk.Menu(self.menu, tearoff=False)
-        self.menu.add_cascade(label='我的收藏', menu=self.favorite_menu)
+        self.menu.add_cascade(label='收藏', menu=self.favorite_menu)
         self.favorite_menu.add_command(label='添加至收藏', command=self.add_favorite)
-        self.favorite_menu.add_command(label='查看收藏', command=self.show_favorite)
-        # 创建win1_city_combobox属性
-        self.win1_city_combobox = ttk.Combobox()
+        self.favorite_menu.add_command(label='我的收藏', command=self.show_favorite)
         
         self.favorite_language = tk.Menu(self.menu, tearoff=False)
         self.menu.add_cascade(label = '语言/language', menu = self.favorite_language)
         self.favorite_language.add_command(label='中文', command=self.chinese)
         self.favorite_language.add_command(label='English', command=self.english)
+
+        self.na_interna = tk.Menu(self.menu, tearoff=False)
+        self.menu.add_cascade(label = '国内/国际', menu = self.na_interna)
+        self.na_interna.add_command(label='国内', command=self.national)
+        self.na_interna.add_command(label='国际', command=self.international)
+
+
+    def national(self):
+        self.secondcanvas.pack_forget()
+        self.myfavcanvas.pack_forget()
+        self.maincanvas.pack()
+        self.maincanvas.update()
+        # 城市名称
+        self.city_label = tk.Label(self.maincanvas, text='城市：')
+        self.city_label.place(x=20, y=20, width=50, height=20)
+        self.city_combobox = ttk.Combobox(self.maincanvas, textvariable=self.city, state='readonly')
+        self.city_combobox['values'] = list(self.city_code.keys())
+        self.city_combobox.place(x=80, y=20, width=100, height=20)
+        self.city_combobox.bind('<<ComboboxSelected>>', self.city_combobox_selected)
+
+        # select the city by inter city name
+        self.citysearch_label = tk.Label(self.maincanvas, text='城市搜索：')
+        self.citysearch_label.place(x=320, y=20, width=60, height=20)
+        self.citysearch_entry = tk.Entry(self.maincanvas)
+        self.citysearch_entry.place(x=380, y=20, width=120, height=20)
+        self.citysearch_button = tk.Button(self.maincanvas, text='搜索', command=self.citysearch_button_clicked)
+        self.citysearch_button.place(x=500, y=20, width=40, height=20)
+        self.citysearch_entry.bind('<KeyRelease>', self.search)
+        # 创建一个列表框来显示搜索结果
+        self.search_results_listbox = tk.Listbox(self.maincanvas)
+        self.search_results_listbox.place(x=380, y=40, width=120, height=40)
+        self.search_results_listbox.bind('<<ListboxSelect>>', self.on_select)
+        # 创建一个滚动条
+        scrollbar = ttk.Scrollbar(self.maincanvas, orient='vertical', command=self.search_results_listbox.yview)
+        scrollbar.place(x=520, y=40, width=20, height=40)
+        self.search_results_listbox['yscrollcommand'] = scrollbar.set
+
+        self.date_label = tk.Label(self.maincanvas, text='日期：')
+        self.date_label.place(x=20, y=60, width=50, height=20)
+        self.date_combobox = ttk.Combobox(self.maincanvas, textvariable=self.date, state='readonly')
+        self.date_combobox['values'] = [datetime.datetime.now().strftime('%Y-%m-%d'), 
+                                        (datetime.datetime.now() + datetime.timedelta(days=1)).strftime('%Y-%m-%d'), 
+                                        (datetime.datetime.now() + datetime.timedelta(days=2)).strftime('%Y-%m-%d'),
+                                        (datetime.datetime.now() + datetime.timedelta(days=3)).strftime('%Y-%m-%d'),]
+        self.date_combobox.place(x=80, y=60, width=100, height=20)
+        self.date_combobox.bind('<<ComboboxSelected>>', self.date_combobox_selected)
+
+        # 星期、温度、湿度、风力风向、白天天气、夜间天气
+        self.week_label = tk.Label(self.maincanvas, text='星期：')
+        self.week_label.place(x=20, y=100, width=50, height=20)
+        self.week_entry = tk.Entry(self.maincanvas)
+        self.week_entry.place(x=80, y=100, width=100, height=20)
+        self.week_entry.insert(0, self.weather.week)
+
+        self.wind_label = tk.Label(self.maincanvas, text='风力风向：')
+        self.wind_label.place(x=320, y=100, width=60, height=20)
+        self.wind_entry = tk.Entry(self.maincanvas)
+        self.wind_entry.place(x=380, y=100, width=100, height=20)
+        self.wind_entry.insert(0, self.weather.wind)
+
+        self.temperature_label = tk.Label(self.maincanvas, text='温度：')
+        self.temperature_label.place(x=20, y=140, width=50, height=20)
+        self.temperature_entry = tk.Entry(self.maincanvas)
+        self.temperature_entry.place(x=80, y=140, width=100, height=20)
+        self.temperature_entry.insert(0,  '{}~{}'.format(self.weather.nighttemperature, self.weather.daytemperature))  
+
+        self.humidity_label = tk.Label(self.maincanvas, text='湿度：')
+        self.humidity_label.place(x=320, y=140, width=50, height=20)
+        self.humidity_entry = tk.Entry(self.maincanvas)
+        self.humidity_entry.place(x=380, y=140, width=100, height=20)
+        self.humidity_entry.insert(0, self.weather.humidity)
+
+        self.dayweather_label = tk.Label(self.maincanvas, text='白天天气：')
+        self.dayweather_label.place(x=20, y=180, width=60, height=20)
+        self.dayweather_entry = tk.Entry(self.maincanvas)
+        self.dayweather_entry.place(x=80, y=180, width=100, height=20)
+        self.dayweather_entry.insert(0, self.weather.dayweather)
+
+        self.nightweather_label = tk.Label(self.maincanvas, text='夜间天气：')
+        self.nightweather_label.place(x=320, y=180, width=60, height=20)
+        self.nightweather_entry = tk.Entry(self.maincanvas)
+        self.nightweather_entry.place(x=380, y=180, width=100, height=20)
+        self.nightweather_entry.insert(0, self.weather.nightweather)
+
+        # 在画布中嵌入图片
+        self.draw_tempreture()
+
+    # 根据当前选择的城市天气信息，画出温度变化图
+    def draw_tempreture(self):
+        x_values = [datetime.datetime.now().strftime('%Y-%m-%d'), 
+                        (datetime.datetime.now() + datetime.timedelta(days=1)).strftime('%Y-%m-%d'), 
+                        (datetime.datetime.now() + datetime.timedelta(days=2)).strftime('%Y-%m-%d'),
+                        (datetime.datetime.now() + datetime.timedelta(days=3)).strftime('%Y-%m-%d'),]
+        y1_values = []
+        y2_values = []
+        for x_value in x_values:
+            y1_values.append(int(self.weather_get.get_weather(self.city.get(), x_value).daytemperature))
+            y2_values.append(int(self.weather_get.get_weather(self.city.get(), x_value).nighttemperature))
+        fig = Figure(figsize=(5,2), dpi=100)
+        a = fig.add_subplot(111)
+        a.plot(x_values, y1_values, label='day')
+        a.plot(x_values, y2_values, label='night')
+
+        # 在每个点上显示温度数值
+        for i, txt in enumerate(y1_values):
+            a.annotate(txt, (x_values[i], y1_values[i]))
+        for i, txt in enumerate(y2_values):
+            a.annotate(txt, (x_values[i], y2_values[i]))
+        a.set_xlabel('date')
+        a.set_ylabel('temperature/℃')
+        a.set_axis_on()
+        a.grid(True, axis='y')
+        canvas = FigureCanvasTkAgg(fig, master=self.maincanvas)  # A tk.DrawingArea.
+        canvas.draw()
+        canvas.get_tk_widget().place(x=20, y=220, width=500, height=200)
 
 
     # 城市下拉框选择事件
@@ -120,27 +179,24 @@ class WeatherGUI:
         self.citysearch_entry.delete(0, tk.END) # 清空搜索框中的内容
         selected_date = self.date.get()  # 获取当前选择的日期
         city_name = self.city.get()  # 获取用户选择的新城市名
-
         # 使用天气 API 获取新的天气信息
         self.weather_get = WeatherGet(self.city_code[city_name]['adcode'])
         new_weather = self.weather_get.get_weather(city_name, selected_date)
-
         # 更新 GUI 显示的天气信息
         self.update_weather_info(new_weather)
-
-    # 日期下拉框选择事件
+    
+        # 日期下拉框选择事件
     def date_combobox_selected(self, event):
         selected_date = self.date.get()  # 获取当前选择的日期
         city_name = self.city.get()  # 获取用户选择的新城市名
         new_weather = self.weather_get.get_weather(city_name, selected_date)
-
         # 更新 GUI 显示的天气信息
         self.update_weather_info(new_weather)
 
     # 这个函数用来更新 GUI 上的天气信息显示，根据传入的天气信息（例如温度、湿度等）
     def update_weather_info(self, weather_info):
         self.temperature_entry.delete(0, tk.END)  # 清空温度 Entry 中的内容
-        self.temperature_entry.insert(0, weather_info.temperature)  # 显示新的温度信息
+        self.temperature_entry.insert(0,  '{}~{}'.format(weather_info.nighttemperature, weather_info.daytemperature))  # 显示新的温度信息
 
         self.humidity_entry.delete(0, tk.END)  # 清空湿度 Entry 中的内容
         self.humidity_entry.insert(0, weather_info.humidity)  # 显示新的湿度信息
@@ -156,6 +212,8 @@ class WeatherGUI:
 
         self.week_entry.delete(0, tk.END)  # 清空星期 Entry 中的内容
         self.week_entry.insert(0, weather_info.week)
+
+        self.draw_tempreture()
 
     # 搜索框输入事件
     def search(self,event):
@@ -190,7 +248,142 @@ class WeatherGUI:
         else:
             messagebox.showinfo('错误', '无法获取天气信息')
 
-    # 添加到收藏
+    """
+        名称：国际天气
+        功能：显示国际天气
+        参数：无
+    """
+    def international(self):
+        self.maincanvas.pack_forget() 
+        self.myfavcanvas.pack_forget() 
+        self.secondcanvas.pack()
+        self.secondcanvas.update()
+
+        # 国家名称
+        self.country_label = tk.Label(self.secondcanvas, text='国家：')
+        self.country_label.place(x=20, y=20, width=50, height=20)
+        self.country_combobox = ttk.Combobox(self.secondcanvas, textvariable=self.country, state='readonly')
+        self.country_combobox['values'] = list(self.international_countrys.keys())
+        self.country_combobox.place(x=80, y=20, width=100, height=20)
+        self.country_combobox.bind('<<ComboboxSelected>>', self.country_combobox_selected)
+        # 国家对应的城市名称
+        self.international_city_label = tk.Label(self.secondcanvas, text='城市：')
+        self.international_city_label.place(x=320, y=20, width=50, height=20)
+        self.international_city_combobox = ttk.Combobox(self.secondcanvas, textvariable=self.country2city, state='readonly')
+        self.international_city_combobox['values'] = list(national_citys(self.international_countrys, self.country.get())) # 根据选定的城市列表更新城市下拉框
+        self.international_city_combobox.place(x=380, y=20, width=100, height=20)
+        self.international_city_combobox.bind('<<ComboboxSelected>>', self.international_city_combobox_selected)
+
+        self.international_date_label = tk.Label(self.secondcanvas, text='日期：')
+        self.international_date_label.place(x=20, y=60, width=50, height=20)
+        self.international_date_combobox = ttk.Combobox(self.secondcanvas, textvariable=self.international_time, state='readonly')
+        self.international_date_combobox['values'] = list(self.globalweather_get.timelist)
+        self.international_date_combobox.place(x=80, y=60, width=150, height=20)
+        self.international_date_combobox.bind('<<ComboboxSelected>>', self.international_time_combobox_selected)
+        
+
+        # 温度
+        self.international_temperature_label = tk.Label(self.secondcanvas, text='温度：')
+        self.international_temperature_label.place(x=20, y=100, width=50, height=20)
+        self.international_temperature_entry = tk.Entry(self.secondcanvas)
+        self.international_temperature_entry.place(x=80, y=100, width=100, height=20)
+        self.international_temperature_entry.insert(0,  '{}~{}'.format(self.globweather.temp_min, self.globweather.temp_max))
+
+        # 体感温度
+        self.international_feels_like_label = tk.Label(self.secondcanvas, text='体感温度：')
+        self.international_feels_like_label.place(x=320, y=100, width=60, height=20)
+        self.international_feels_like_entry = tk.Entry(self.secondcanvas)
+        self.international_feels_like_entry.place(x=380, y=100, width=100, height=20)
+        self.international_feels_like_entry.insert(0, self.globweather.feels_like)
+
+        # 压强
+        self.international_pressure_label = tk.Label(self.secondcanvas, text='压强：')
+        self.international_pressure_label.place(x=20, y=140, width=50, height=20)
+        self.international_pressure_entry = tk.Entry(self.secondcanvas)
+        self.international_pressure_entry.place(x=80, y=140, width=100, height=20)
+        self.international_pressure_entry.insert(0, self.globweather.pressure)
+
+        # 湿度
+        self.international_humidity_label = tk.Label(self.secondcanvas, text='湿度：')
+        self.international_humidity_label.place(x=320, y=140, width=50, height=20)
+        self.international_humidity_entry = tk.Entry(self.secondcanvas)
+        self.international_humidity_entry.place(x=380, y=140, width=100, height=20)
+        self.international_humidity_entry.insert(0, self.globweather.humidity)
+
+        # 天气描述
+        self.international_description_label = tk.Label(self.secondcanvas, text='天气描述：')
+        self.international_description_label.place(x=20, y=180, width=60, height=20)
+        self.international_description_entry = tk.Entry(self.secondcanvas)
+        self.international_description_entry.place(x=80, y=180, width=100, height=20)
+        self.international_description_entry.insert(0, self.globweather.description)
+
+        # 风向
+        self.international_wind_label = tk.Label(self.secondcanvas, text='风向：')
+        self.international_wind_label.place(x=320, y=180, width=50, height=20)
+        self.international_wind_entry = tk.Entry(self.secondcanvas)
+        self.international_wind_entry.place(x=380, y=180, width=100, height=20)
+        self.international_wind_entry.insert(0, self.globweather.wind)
+
+    def international_time_combobox_selected(self, event):
+        selected_time = self.international_time.get()
+        self.globweather = self.globalweather_get.get_weather(selected_time)
+        self.international_temperature_entry.delete(0, tk.END)  # 清空温度 Entry 中的内容
+        self.international_temperature_entry.insert(0,  '{}~{}'.format(self.globweather.temp_min, self.globweather.temp_max))  # 显示新的温度信息
+
+        self.international_feels_like_entry.delete(0, tk.END)  # 清空体感温度 Entry 中的内容
+        self.international_feels_like_entry.insert(0, self.globweather.feels_like)  # 显示新的体感温度信息
+
+        self.international_pressure_entry.delete(0, tk.END)  # 清空压强 Entry 中的内容
+        self.international_pressure_entry.insert(0, self.globweather.pressure)  # 显示新的压强信息
+
+        self.international_humidity_entry.delete(0, tk.END)  # 清空湿度 Entry 中的内容
+        self.international_humidity_entry.insert(0, self.globweather.humidity)  # 显示新的湿度信息
+
+        self.international_description_entry.delete(0, tk.END)  # 清空天气描述 Entry 中的内容
+        self.international_description_entry.insert(0, self.globweather.description)  # 显示新的天气描述信息
+
+        self.international_wind_entry.delete(0, tk.END)  # 清空风向 Entry 中的内容
+        self.international_wind_entry.insert(0, self.globweather.wind)  # 显示新的风向信息
+
+
+
+    def country_combobox_selected(self, event): 
+        self.international_city_combobox['values'] = list(national_citys(self.international_countrys, self.country.get())) # 根据选定的城市列表更新城市下拉框
+        self.country2city.set(list(national_citys(self.international_countrys, self.country.get()))[0])
+        
+
+    def international_city_combobox_selected(self, event):
+        self.citylat, self.citylon = citys_lat_lon(self.international_countrys, self.country.get(), self.country2city.get())
+        self.globalweather_get = GlobalWeatherGet(self.citylat, self.citylon)
+        self.globweather = self.globalweather_get.get_weather(self.international_time.get())
+        self.international_time_combobox_selected(0)
+
+
+    
+
+    # 查看收藏
+    def show_favorite(self):
+        if len(self.my_favorite_city.get_favor_cityls()) == 0:
+            messagebox.showinfo('提示', '收藏夹为空')
+        else:  
+            self.maincanvas.pack_forget()
+            self.secondcanvas.pack_forget()
+            self.myfavcanvas.pack()
+            self.myfavcanvas.update() # 刷新窗口
+            self.cityinlist = list(self.my_favorite_city.get_favor_cityls())
+            self.my_fav_city = tk.StringVar()  # 用来存储用户选择的城市名
+            self.my_fav_city.set(list(self.cityinlist)[0])
+            self.fav_city_label = tk.Label(self.myfavcanvas, text='城市：')
+            self.fav_city_label.place(x=20, y=20, width=50, height=20)
+            self.fav_city_combobox = ttk.Combobox(self.myfavcanvas, textvariable= self.my_fav_city, state='readonly')
+            self.fav_city_combobox['values'] =  self.cityinlist
+            self.fav_city_combobox.place(x=80, y=20, width=100, height=20)
+            self.fav_city_combobox_selected(0)
+            self.fav_city_combobox.bind('<<ComboboxSelected>>', self.fav_city_combobox_selected)
+
+            self.win1_delete_button = tk.Button(self.myfavcanvas, text='删除', command=self.delete_favorite)
+            self.win1_delete_button.place(x=200, y=20, width=40, height=20)
+        # 添加到收藏
     def add_favorite(self):
         self.cityweather = []
         for i in range(0,4):
@@ -199,72 +392,42 @@ class WeatherGUI:
             self.cityweather.append(self.weather)
         self.my_favorite_city.add_weather(self.city.get(), self.cityweather)
         messagebox.showinfo('提示', '添加成功')
-        # 重新加载收藏夹中的城市
-        self.win1_city_combobox['values'] = list(self.my_favorite_city.get_favor_cityls())
 
     # 从收藏中删除
     def delete_favorite(self):
-        self.my_favorite_city.delete_weather(self.win1_city_combobox.get())
+        self.my_favorite_city.delete_weather(self.fav_city_combobox.get())
         # 如果收藏夹空的，则关掉my_favorite_window窗口
         if len(self.my_favorite_city.get_favor_cityls()) == 0:
-            self.favorite_window.destroy()
+            self.myfavcanvas.pack_forget()
+            self.maincanvas.pack()
             messagebox.showinfo('提示', '删除成功')
         else: 
             # 删除后清空 self.win1_city_combobox
             self.my_fav_city.set(list(self.my_favorite_city.get_favor_cityls())[0])
             # 重新加载收藏夹中的城市
-            self.win1_city_combobox['values'] = list(self.my_favorite_city.get_favor_cityls())
+            self.fav_city_combobox['values'] = list(self.my_favorite_city.get_favor_cityls())
 
-    # 查看收藏
-    def show_favorite(self):
-        if len(self.my_favorite_city.get_favor_cityls()) == 0:
-            messagebox.showinfo('提示', '收藏夹为空')
-        else:  
-            self.favorite_window = tk.Toplevel(self.root)
-            self.favorite_window.title('我的收藏')
-            self.favorite_window.geometry('500x400')
-            self.favorite_window.resizable(False, False)
-            self.favorite_window.update() # 刷新窗口
-            self.create_favorite_widgets()
-            self.favorite_window.mainloop() 
-        
 
-    # 创建收藏界面
-    def create_favorite_widgets(self):
-        # 城市名称
-        self.cityinlist = list(self.my_favorite_city.get_favor_cityls())
-        self.my_fav_city = tk.StringVar()  # 用来存储用户选择的城市名
-        self.my_fav_city.set(list(self.cityinlist)[0])
-        self.win1_city_label = tk.Label(self.favorite_window, text='城市：')
-        self.win1_city_label.place(x=20, y=20, width=50, height=20)
-        self.win1_city_combobox = ttk.Combobox(self.favorite_window, textvariable= self.my_fav_city, state='readonly')
-        self.win1_city_combobox['values'] =  self.cityinlist
-        self.win1_city_combobox.place(x=80, y=20, width=100, height=20)
-        self.win1_city_combobox.bind('<<ComboboxSelected>>', self.win1_city_combobox_selected)
-
-        self.win1_delete_button = tk.Button(self.favorite_window, text='删除', command=self.delete_favorite)
-        self.win1_delete_button.place(x=200, y=20, width=40, height=20)
-        
     # 收藏界面城市下拉框选择事件
-    def win1_city_combobox_selected(self, event):
-        self.fav_weath_info = self.my_favorite_city.get_weather(self.win1_city_combobox.get())
+    def fav_city_combobox_selected(self, event):
+        self.fav_weath_info = self.my_favorite_city.get_weather(self.fav_city_combobox.get())
         xpos = 20
         ypos = 60
         for weather in self.fav_weath_info:
-            self.win1_date_label = tk.Label(self.favorite_window, text='日期：'+ weather.date)
+            self.win1_date_label = tk.Label(self.myfavcanvas, text='日期：'+ weather.date)
             self.win1_date_label.place(x=xpos, y=ypos, width=100, height=20)
             # 以label的形式显示天气信息
-            self.win1_week_label = tk.Label(self.favorite_window, text='星期：'+ weather.week)
+            self.win1_week_label = tk.Label(self.myfavcanvas, text='星期：'+ weather.week)
             self.win1_week_label.place(x=xpos, y=ypos+20, width=100, height=20)
-            self.win1_temperature_label = tk.Label(self.favorite_window, text='温度：'+ weather.temperature)
+            self.win1_temperature_label = tk.Label(self.myfavcanvas, text='温度：'+ weather.daytemperature)
             self.win1_temperature_label.place(x=xpos, y=ypos+40, width=100, height=20)
-            self.win1_humidity_label = tk.Label(self.favorite_window, text='湿度：'+ weather.humidity)
+            self.win1_humidity_label = tk.Label(self.myfavcanvas, text='湿度：'+ weather.humidity)
             self.win1_humidity_label.place(x=xpos, y=ypos+60, width=100, height=20)
-            self.win1_wind_label = tk.Label(self.favorite_window, text='风力风向：'+ weather.wind)
+            self.win1_wind_label = tk.Label(self.myfavcanvas, text='风力风向：'+ weather.wind)
             self.win1_wind_label.place(x=xpos, y=ypos+80, width=100, height=20)
-            self.win1_dayweather_label = tk.Label(self.favorite_window, text='白天天气：'+ weather.dayweather)
+            self.win1_dayweather_label = tk.Label(self.myfavcanvas, text='白天天气：'+ weather.dayweather)
             self.win1_dayweather_label.place(x=xpos, y=ypos+100, width=100, height=20)
-            self.win1_nightweather_label = tk.Label(self.favorite_window, text='夜间天气：'+ weather.nightweather)
+            self.win1_nightweather_label = tk.Label(self.myfavcanvas, text='夜间天气：'+ weather.nightweather)
             self.win1_nightweather_label.place(x=xpos, y=ypos+120, width=100, height=20)
             xpos += 120
             ypos = 60  

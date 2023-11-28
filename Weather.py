@@ -4,15 +4,16 @@ import datetime
 from tkinter import messagebox
 # 天气类
 class Weather:
-    def __init__(self, city, date, week, temperature, humidity, wind, dayweather, nightweather):
+    def __init__(self, city, date, week, daytemperature, nighttemperature, humidity, wind, dayweather, nightweather):
         self.city = city
         self.date = date
-        self.temperature = temperature
+        self.daytemperature = daytemperature
+        self.nighttemperature = nighttemperature
         self.humidity = humidity
         self.wind = wind
         self.dayweather = dayweather
         self.nightweather = nightweather
-        self.week = week
+        self.week = week        
 
 # 用来存储我喜爱的城市的天气信息
 class MyFavoriteCity:
@@ -29,22 +30,7 @@ class MyFavoriteCity:
         return self.weathers[city]
     
     def get_favor_cityls(self):
-        return self.weathers.keys()
-
-        # for weather in self.weathers:
-        #     favorite_list.setdefault(weather.city, {})[weather.date] = {
-        #         'week': weather.week, 
-        #         'temperature': weather.temperature,
-        #         'humidity': weather.humidity, 
-        #         'wind': weather.wind, 
-        #         'dayweather': weather.dayweather,
-        #         'nightweather': weather.nightweather
-        #     }
-        # print(json.dumps(favorite_list, indent=4, ensure_ascii=False))
-        # return favorite_list
-            
-
-
+        return self.weathers.keys()     
             
 # 通过api获取天气信息
 class WeatherGet:
@@ -65,7 +51,7 @@ class WeatherGet:
         if data['status'] == '1':
             day_city = data['forecasts'][0]['city']
             for day in data['forecasts'][0]['casts']:
-                weather = Weather(day_city, day['date'], day['week'], day['daytemp'], 
+                weather = Weather(day_city, day['date'], day['week'], day['daytemp'], day['nighttemp'],
                                   day['daypower'], day['daywind'], day['dayweather'], day['nightweather'])
                 self.add_weather(weather)
         else:
@@ -79,7 +65,58 @@ class WeatherGet:
             if weather.city == city:
                 if date is None or weather.date == date:
                     return weather
-            else:
+        else:
                 print('city not found')
             
+class GlobalWeather:
+    def __init__(self, country, city, time, temp_max, temp_min, feels_like, pressure, humidity, description, wind):
+        self.country = country
+        self.city = city
+        self.time = time
+        self.temp_max = temp_max
+        self.temp_min = temp_min
+        self.feels_like = feels_like
+        self.pressure = pressure
+        self.humidity = humidity
+        self.description = description
+        self.wind = wind
+
+
+class GlobalWeatherGet:
+    def __init__(self, lat, lon):
+        self.globalweathers = []
+        self.timelist = []
+        self.lat = lat
+        self.lon = lon
+        self.api = 'b81e53352899d219d96a6b1371b6929a'
+        self.url = 'http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={appid}'.format(
+                        lat = self.lat, lon = self.lon, appid=self.api)
+        self.update_weather()
     
+    def update_weather(self):
+        self.globalweathers.clear()
+        responseweather = requests.get(self.url)
+        data = json.loads(responseweather.text)
+        print(data)
+        if data['cod'] == '200':
+            countryname = data['city']['country']
+            cityname = data['city']['name']
+            for day in data['list']:
+                weather = GlobalWeather(countryname, cityname, day['dt_txt'], day['main']['temp_max'],
+                                        day['main']['temp_min'], day['main']['feels_like'], day['main']['pressure'],
+                                        day['main']['humidity'], day['weather'][0]['description'], str('deg:'+ str(day['wind']['deg'])+'speed:'+str(day['wind']['speed'])))
+                self.timelist.append(day['dt_txt'])
+                self.add_weather(weather)
+        else:
+            messagebox.showinfo('错误', '无法获取天气信息')
+        
+    def add_weather(self, weather):
+        self.globalweathers.append(weather)
+
+    def get_weather(self, time):
+        for weather in self.globalweathers:
+            if weather.time == time:
+                return weather
+        else:
+                print('global city not found')
+

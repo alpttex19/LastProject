@@ -14,7 +14,7 @@
 # 4.多语言支持：课根据用户偏好，切换应用中英文显示。
 
 
-from gui import WeatherGUI
+from GUI import WeatherGUI
 from Readfiles import *
 
 

@@ -47,12 +47,21 @@ def international_country_info():
 
 # national_country_list()
 
+def citys_lat_lon(national_country_list, country, city):
+    # country is the key of the national_country_list, city is the key of the national_city_list, return the lat and lon of the city
+    for city_info in national_country_list[country]:
+        if city_info['name'] == city:
+            lat = city_info['lat']
+            lon = city_info['lon']
+            # print(lat, lon)
+            return lat, lon
+
 def countrys(national_country_list):
     # coutryname is the key of the national_city_list, make countryname as a list
     countrys = []
     for countryname in national_country_list:
         countrys.append(countryname)
-    print(countrys)
+    # print(countrys)
     return countrys
 
 def national_citys(national_country_list, country):
@@ -60,7 +69,7 @@ def national_citys(national_country_list, country):
     national_citys = []
     for city in national_country_list[country]:
         national_citys.append(city['name'])
-    print(national_citys)
+    # print(national_citys)
     return national_citys
 
 # countrys(international_country_list())
