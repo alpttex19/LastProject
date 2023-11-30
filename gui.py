@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import Canvas, Scrollbar, Frame
 import datetime
 from tkinter import messagebox
 from Weather import WeatherGet, MyFavoriteCity, Weather, GlobalWeatherGet
@@ -329,6 +330,7 @@ class WeatherGUI:
         self.draw_international_tempreture()
 
     def international_time_combobox_selected(self, event):
+        self.draw_international_tempreture()
         selected_time = self.international_time.get()
         self.globweather = self.globalweather_get.get_weather(selected_time)
         self.international_temperature_entry.delete(0, tk.END)  # 清空温度 Entry 中的内容
@@ -369,8 +371,10 @@ class WeatherGUI:
         for x_value in x_values:
             y1_values.append(self.globalweather_get.get_weather(x_value).temp_max)
             y2_values.append(self.globalweather_get.get_weather(x_value).temp_min)
-        fig = Figure(figsize=(10,2), dpi=100)
+        fig = Figure(figsize=(40,2), dpi=100)
         a = fig.add_subplot(111)
+        # 只显示x_values的形式是2023-12-1 18:00:00，只留下12:1 18
+        x_values = [x_value[5:10] + '/' + x_value[11:13] for x_value in x_values]
         a.plot(x_values, y1_values, label='time')
         a.plot(x_values, y2_values, label='night')
 
@@ -383,9 +387,33 @@ class WeatherGUI:
         a.set_ylabel('temperature/℃')
         a.set_axis_on()
         a.grid(True, axis='y')
-        canvas = FigureCanvasTkAgg(fig, master=self.secondcanvas)  # A tk.DrawingArea.
+        # canvas = FigureCanvasTkAgg(fig, master=self.secondcanvas)  # A tk.DrawingArea.
+        # canvas.draw()
+        # canvas.get_tk_widget().place(x=20, y=220, width=500, height=200)
+
+        # 创建一个可滚动的画布
+        scroll_canvas = Canvas(self.secondcanvas)
+        scroll_canvas.place(x=20, y=220, width=500, height=200)
+
+        # 创建一个滚动条
+        scrollbar = Scrollbar(self.secondcanvas, orient="horizontal", command=scroll_canvas.xview, width = 30)
+        scrollbar.place(x=20, y=430, width=500, height=20)
+        #scrollbar.pack(side="bottom", fill="x")
+
+        # 将滚动条连接到画布
+        scroll_canvas.configure(xscrollcommand=scrollbar.set)
+
+        # 创建一个Frame，将其添加到画布中
+        frame = Frame(scroll_canvas)
+        scroll_canvas.create_window((500,200), window=frame, anchor='nw')
+        # 将FigureCanvasTkAgg添加到Frame中
+        canvas = FigureCanvasTkAgg(fig, master=frame)
         canvas.draw()
-        canvas.get_tk_widget().place(x=20, y=220, width=500, height=200)
+        canvas.get_tk_widget().pack(side="top", fill="both", expand=1)
+
+        # 更新画布的滚动区域
+        frame.update_idletasks()
+        scroll_canvas.configure(scrollregion=scroll_canvas.bbox('all'))
 
 
     
