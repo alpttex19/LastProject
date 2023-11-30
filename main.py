@@ -21,7 +21,8 @@ from Readfiles import *
 def main():
     international_countrys = international_country_info() # international city list
     cn_citys = national_city_info()              # china city list
-    GUI = WeatherGUI(cn_citys, international_countrys)
+    countryfullnames = national_city_list()
+    GUI = WeatherGUI(cn_citys, international_countrys, countryfullnames)
 
 if __name__ == '__main__':
     main()

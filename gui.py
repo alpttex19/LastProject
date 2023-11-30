@@ -11,7 +11,7 @@ from matplotlib.figure import Figure
 # GUI界面
 class WeatherGUI:
     # 初始化
-    def __init__(self,cn_citys, international_countrys):
+    def __init__(self,cn_citys, international_countrys, countryfullnames):
         self.root = tk.Tk()
         self.root.geometry('600x480')
         self.root.title('天气预报')
@@ -27,12 +27,13 @@ class WeatherGUI:
         self.weather = self.weather_get.get_weather(self.city.get(), self.date.get())
 
         self.international_countrys = international_countrys
+        self.countryfullnames = countryfullnames
         self.country = tk.StringVar()  # 用来存储用户选择的国家名
-        self.country.set('CN')
+        self.country.set('China')
         self.country2city = tk.StringVar()  # 用来存储用户选择的城市名
         self.country2city.set('Beijing')
 
-        self.citylat, self.citylon = citys_lat_lon(self.international_countrys, self.country.get(), self.country2city.get())
+        self.citylat, self.citylon = citys_lat_lon(self.international_countrys, self.countryfullnames[self.country.get()], self.country2city.get())
         self.globalweather_get = GlobalWeatherGet(self.citylat, self.citylon)
         self.international_time = tk.StringVar()
         self.international_time.set(self.globalweather_get.timelist[0])
@@ -263,14 +264,14 @@ class WeatherGUI:
         self.country_label = tk.Label(self.secondcanvas, text='国家：')
         self.country_label.place(x=20, y=20, width=50, height=20)
         self.country_combobox = ttk.Combobox(self.secondcanvas, textvariable=self.country, state='readonly')
-        self.country_combobox['values'] = list(self.international_countrys.keys())
-        self.country_combobox.place(x=80, y=20, width=100, height=20)
+        self.country_combobox['values'] = list(self.countryfullnames.keys())
+        self.country_combobox.place(x=80, y=20, width=150, height=20)
         self.country_combobox.bind('<<ComboboxSelected>>', self.country_combobox_selected)
         # 国家对应的城市名称
         self.international_city_label = tk.Label(self.secondcanvas, text='城市：')
         self.international_city_label.place(x=320, y=20, width=50, height=20)
         self.international_city_combobox = ttk.Combobox(self.secondcanvas, textvariable=self.country2city, state='readonly')
-        self.international_city_combobox['values'] = list(national_citys(self.international_countrys, self.country.get())) # 根据选定的城市列表更新城市下拉框
+        self.international_city_combobox['values'] = list(national_citys(self.international_countrys, self.countryfullnames[self.country.get()])) # 根据选定的城市列表更新城市下拉框
         self.international_city_combobox.place(x=380, y=20, width=100, height=20)
         self.international_city_combobox.bind('<<ComboboxSelected>>', self.international_city_combobox_selected)
 
@@ -321,8 +322,11 @@ class WeatherGUI:
         self.international_wind_label = tk.Label(self.secondcanvas, text='风向：')
         self.international_wind_label.place(x=320, y=180, width=50, height=20)
         self.international_wind_entry = tk.Entry(self.secondcanvas)
-        self.international_wind_entry.place(x=380, y=180, width=100, height=20)
+        self.international_wind_entry.place(x=380, y=180, width=150, height=20)
         self.international_wind_entry.insert(0, self.globweather.wind)
+
+        # 在画布中嵌入图片
+        self.draw_international_tempreture()
 
     def international_time_combobox_selected(self, event):
         selected_time = self.international_time.get()
@@ -346,17 +350,42 @@ class WeatherGUI:
         self.international_wind_entry.insert(0, self.globweather.wind)  # 显示新的风向信息
 
 
-
     def country_combobox_selected(self, event): 
-        self.international_city_combobox['values'] = list(national_citys(self.international_countrys, self.country.get())) # 根据选定的城市列表更新城市下拉框
-        self.country2city.set(list(national_citys(self.international_countrys, self.country.get()))[0])
+        self.international_city_combobox['values'] = list(national_citys(self.international_countrys, self.countryfullnames[self.country.get()])) # 根据选定的城市列表更新城市下拉框
+        self.country2city.set(list(national_citys(self.international_countrys, self.countryfullnames[self.country.get()]))[0])
         
 
     def international_city_combobox_selected(self, event):
-        self.citylat, self.citylon = citys_lat_lon(self.international_countrys, self.country.get(), self.country2city.get())
+        self.citylat, self.citylon = citys_lat_lon(self.international_countrys, self.countryfullnames[self.country.get()], self.country2city.get())
         self.globalweather_get = GlobalWeatherGet(self.citylat, self.citylon)
         self.globweather = self.globalweather_get.get_weather(self.international_time.get())
         self.international_time_combobox_selected(0)
+
+    # 根据当前选择的城市天气信息，画出温度变化图
+    def draw_international_tempreture(self):
+        x_values = list(self.globalweather_get.timelist)
+        y1_values = []
+        y2_values = []
+        for x_value in x_values:
+            y1_values.append(self.globalweather_get.get_weather(x_value).temp_max)
+            y2_values.append(self.globalweather_get.get_weather(x_value).temp_min)
+        fig = Figure(figsize=(10,2), dpi=100)
+        a = fig.add_subplot(111)
+        a.plot(x_values, y1_values, label='time')
+        a.plot(x_values, y2_values, label='night')
+
+        # 在每个点上显示温度数值
+        for i, txt in enumerate(y1_values):
+            a.annotate(txt, (x_values[i], y1_values[i]))
+        for i, txt in enumerate(y2_values):
+            a.annotate(txt, (x_values[i], y2_values[i]))
+        a.set_xlabel('date')
+        a.set_ylabel('temperature/℃')
+        a.set_axis_on()
+        a.grid(True, axis='y')
+        canvas = FigureCanvasTkAgg(fig, master=self.secondcanvas)  # A tk.DrawingArea.
+        canvas.draw()
+        canvas.get_tk_widget().place(x=20, y=220, width=500, height=200)
 
 
     

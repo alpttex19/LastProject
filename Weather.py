@@ -47,7 +47,7 @@ class WeatherGet:
         self.weathers.clear()
         response = requests.get(self.url)
         data = json.loads(response.text)
-        print(data)
+        # print(data)
         if data['status'] == '1':
             day_city = data['forecasts'][0]['city']
             for day in data['forecasts'][0]['casts']:
@@ -63,10 +63,11 @@ class WeatherGet:
     def get_weather(self, city, date=None):
         for weather in self.weathers:
             if weather.city == city:
-                if date is None or weather.date == date:
+                # print(weather.date, date)
+                if date == weather.date or (date is None) :
                     return weather
         else:
-                print('city not found')
+            print('city not found')
             
 class GlobalWeather:
     def __init__(self, country, city, time, temp_max, temp_min, feels_like, pressure, humidity, description, wind):
@@ -97,14 +98,14 @@ class GlobalWeatherGet:
         self.globalweathers.clear()
         responseweather = requests.get(self.url)
         data = json.loads(responseweather.text)
-        print(data)
+        # print(data)
         if data['cod'] == '200':
             countryname = data['city']['country']
             cityname = data['city']['name']
             for day in data['list']:
-                weather = GlobalWeather(countryname, cityname, day['dt_txt'], day['main']['temp_max'],
-                                        day['main']['temp_min'], day['main']['feels_like'], day['main']['pressure'],
-                                        day['main']['humidity'], day['weather'][0]['description'], str('deg:'+ str(day['wind']['deg'])+'speed:'+str(day['wind']['speed'])))
+                weather = GlobalWeather(countryname, cityname, day['dt_txt'], round((day['main']['temp_max']-273.15), 2),
+                                        round((day['main']['temp_min']-273.15), 2), round((day['main']['feels_like']-273.15), 2), day['main']['pressure'],
+                                        day['main']['humidity'], day['weather'][0]['description'], str('deg:'+ str(day['wind']['deg'])+'~speed:'+str(day['wind']['speed'])))
                 self.timelist.append(day['dt_txt'])
                 self.add_weather(weather)
         else:

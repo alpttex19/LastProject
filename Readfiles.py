@@ -69,6 +69,9 @@ def national_citys(national_country_list, country):
     national_citys = []
     for city in national_country_list[country]:
         national_citys.append(city['name'])
+    # duplicate removal
+    national_citys = list(set(national_citys))
+    national_citys.sort()
     # print(national_citys)
     return national_citys
 
@@ -76,4 +79,16 @@ def national_citys(national_country_list, country):
 # national_citys(international_country_list(), 'CN')
 
 
+# return the city fullname of the city
+# 读取national_city_list.txt文件，将每一行的城市信息以元组的形式保存在列表中
+def national_city_list():
+    national_city_list = {}
+    with open('fullname.txt', 'r', encoding='utf-8') as f:
+        for line in f.readlines():
+            line = line.strip()
+            line = line.split()
+            national_city_list[line[1]] = line[0]
+    return national_city_list
+
+# print(national_city_list()['IR'])
 
