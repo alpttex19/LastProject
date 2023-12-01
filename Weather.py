@@ -22,12 +22,21 @@ class MyFavoriteCity:
     
     def add_weather(self,city, cityweather):
         self.weathers[city] = cityweather
+
+    def add_global_weather(self, globalcity, cityweather):
+        self.weathers[globalcity] = cityweather
         
     def delete_weather(self,city):
         self.weathers.pop(city)
 
+    def delete_global_weather(self, globalcity):
+        self.weathers.pop(globalcity)
+
     def get_weather(self, city):
         return self.weathers[city]
+
+    def get_global_weather(self, globalcity):
+        return self.weathers[globalcity]
     
     def get_favor_cityls(self):
         return self.weathers.keys()     

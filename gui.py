@@ -18,7 +18,7 @@ class WeatherGUI:
         self.root.title('天气预报')
         self.maincanvas = tk.Canvas(self.root, width=600, height=480, bg='white')
         self.secondcanvas = tk.Canvas(self.root, width=600, height=480, bg='white')
-        self.myfavcanvas = tk.Canvas(self.root, width=600, height=300, bg='white')
+        self.myfavcanvas = tk.Canvas(self.root, width=600, height=480, bg='white')
         self.city_code = cn_citys
         self.city = tk.StringVar()  # 用来存储用户选择的城市名
         self.city.set('北京市')
@@ -330,7 +330,6 @@ class WeatherGUI:
         self.draw_international_tempreture()
 
     def international_time_combobox_selected(self, event):
-        self.draw_international_tempreture()
         selected_time = self.international_time.get()
         self.globweather = self.globalweather_get.get_weather(selected_time)
         self.international_temperature_entry.delete(0, tk.END)  # 清空温度 Entry 中的内容
@@ -355,13 +354,14 @@ class WeatherGUI:
     def country_combobox_selected(self, event): 
         self.international_city_combobox['values'] = list(national_citys(self.international_countrys, self.countryfullnames[self.country.get()])) # 根据选定的城市列表更新城市下拉框
         self.country2city.set(list(national_citys(self.international_countrys, self.countryfullnames[self.country.get()]))[0])
-        
+        self.draw_international_tempreture()
 
     def international_city_combobox_selected(self, event):
         self.citylat, self.citylon = citys_lat_lon(self.international_countrys, self.countryfullnames[self.country.get()], self.country2city.get())
         self.globalweather_get = GlobalWeatherGet(self.citylat, self.citylon)
         self.globweather = self.globalweather_get.get_weather(self.international_time.get())
         self.international_time_combobox_selected(0)
+        self.draw_international_tempreture()
 
     # 根据当前选择的城市天气信息，画出温度变化图
     def draw_international_tempreture(self):
@@ -409,7 +409,7 @@ class WeatherGUI:
         # 将FigureCanvasTkAgg添加到Frame中
         canvas = FigureCanvasTkAgg(fig, master=frame)
         canvas.draw()
-        canvas.get_tk_widget().pack(side="top", fill="both", expand=1)
+        canvas.get_tk_widget().pack(side="left", fill="both", expand=True) # 将画布填充到Frame中
 
         # 更新画布的滚动区域
         frame.update_idletasks()
@@ -443,12 +443,23 @@ class WeatherGUI:
         # 添加到收藏
     def add_favorite(self):
         self.cityweather = []
-        for i in range(0,4):
-            idate = (datetime.datetime.now() + datetime.timedelta(days=i)).strftime('%Y-%m-%d')
-            self.weather = self.weather_get.get_weather(self.city.get(),idate)
-            self.cityweather.append(self.weather)
-        self.my_favorite_city.add_weather(self.city.get(), self.cityweather)
-        messagebox.showinfo('提示', '添加成功')
+        #如果当前页面是self.maincanvas，则添加到收藏
+        if self.maincanvas.winfo_ismapped():
+            for i in range(0,4):
+                idate = (datetime.datetime.now() + datetime.timedelta(days=i)).strftime('%Y-%m-%d')
+                self.weather = self.weather_get.get_weather(self.city.get(),idate)
+                self.cityweather.append(self.weather)
+            self.my_favorite_city.add_weather(self.city.get(), self.cityweather)
+            messagebox.showinfo('提示', '添加成功')
+        # 如果当前页面是self.secondcanvas，将国际类的天气信息添加到收藏
+        elif self.secondcanvas.winfo_ismapped():
+            for time in self.globalweather_get.timelist:
+                self.globweather = self.globalweather_get.get_weather(time)
+                self.cityweather.append(self.globweather)
+            self.my_favorite_city.add_weather(self.country2city.get(), self.cityweather)
+            messagebox.showinfo('提示', '添加成功')
+        else:
+            messagebox.showinfo('提示', '当前页面不是国内天气页面，无法添加')
 
     # 从收藏中删除
     def delete_favorite(self):
@@ -468,26 +479,66 @@ class WeatherGUI:
     # 收藏界面城市下拉框选择事件
     def fav_city_combobox_selected(self, event):
         self.fav_weath_info = self.my_favorite_city.get_weather(self.fav_city_combobox.get())
-        xpos = 20
-        ypos = 60
-        for weather in self.fav_weath_info:
-            self.win1_date_label = tk.Label(self.myfavcanvas, text='日期：'+ weather.date)
-            self.win1_date_label.place(x=xpos, y=ypos, width=100, height=20)
-            # 以label的形式显示天气信息
-            self.win1_week_label = tk.Label(self.myfavcanvas, text='星期：'+ weather.week)
-            self.win1_week_label.place(x=xpos, y=ypos+20, width=100, height=20)
-            self.win1_temperature_label = tk.Label(self.myfavcanvas, text='温度：'+ weather.daytemperature)
-            self.win1_temperature_label.place(x=xpos, y=ypos+40, width=100, height=20)
-            self.win1_humidity_label = tk.Label(self.myfavcanvas, text='湿度：'+ weather.humidity)
-            self.win1_humidity_label.place(x=xpos, y=ypos+60, width=100, height=20)
-            self.win1_wind_label = tk.Label(self.myfavcanvas, text='风力风向：'+ weather.wind)
-            self.win1_wind_label.place(x=xpos, y=ypos+80, width=100, height=20)
-            self.win1_dayweather_label = tk.Label(self.myfavcanvas, text='白天天气：'+ weather.dayweather)
-            self.win1_dayweather_label.place(x=xpos, y=ypos+100, width=100, height=20)
-            self.win1_nightweather_label = tk.Label(self.myfavcanvas, text='夜间天气：'+ weather.nightweather)
-            self.win1_nightweather_label.place(x=xpos, y=ypos+120, width=100, height=20)
-            xpos += 120
-            ypos = 60  
+        print(self.fav_weath_info)
+        # 如果选择的城市是国内类的天气信息
+        if self.fav_weath_info[0].__class__.__name__ == 'Weather':
+            # 清空页面上的信息
+            self.myfavcanvas.pack_forget()
+            self.myfavcanvas.pack()
+            xpos = 20
+            ypos = 60
+            for weather in self.fav_weath_info:
+                self.win1_date_label = tk.Label(self.myfavcanvas, text='日期：'+ weather.date)
+                self.win1_date_label.place(x=xpos, y=ypos, width=100, height=20)
+                # 以label的形式显示天气信息
+                self.win1_week_label = tk.Label(self.myfavcanvas, text='星期：'+ weather.week)
+                self.win1_week_label.place(x=xpos, y=ypos+20, width=100, height=20)
+                self.win1_temperature_label = tk.Label(self.myfavcanvas, text='温度：'+ weather.daytemperature)
+                self.win1_temperature_label.place(x=xpos, y=ypos+40, width=100, height=20)
+                self.win1_humidity_label = tk.Label(self.myfavcanvas, text='湿度：'+ weather.humidity)
+                self.win1_humidity_label.place(x=xpos, y=ypos+60, width=100, height=20)
+                self.win1_wind_label = tk.Label(self.myfavcanvas, text='风力风向：'+ weather.wind)
+                self.win1_wind_label.place(x=xpos, y=ypos+80, width=100, height=20)
+                self.win1_dayweather_label = tk.Label(self.myfavcanvas, text='白天天气：'+ weather.dayweather)
+                self.win1_dayweather_label.place(x=xpos, y=ypos+100, width=100, height=20)
+                self.win1_nightweather_label = tk.Label(self.myfavcanvas, text='夜间天气：'+ weather.nightweather)
+                self.win1_nightweather_label.place(x=xpos, y=ypos+120, width=100, height=20)
+                xpos += 120
+                ypos = 60  
+            
+        # 如果选择的城市是国际类的天气信息
+        elif self.fav_weath_info[0].__class__.__name__ == 'GlobalWeather':
+            self.myfavcanvas.pack_forget()
+            self.myfavcanvas.pack()
+            xpos = 10
+            ypos = 60
+            i = 0
+            for weather in self.fav_weath_info:
+                i += 1
+                self.win1_date_label = tk.Label(self.myfavcanvas, text='日期：'+ weather.time)
+                self.win1_date_label.place(x=xpos, y=ypos, width=100, height=20)
+                # 以label的形式显示天气信息
+                self.win1_temperature_label = tk.Label(self.myfavcanvas, text='最高温度：'+ str(weather.temp_max))
+                self.win1_temperature_label.place(x=xpos, y=ypos+20, width=100, height=20)
+                self.win1_feels_like_label = tk.Label(self.myfavcanvas, text='体感温度：'+ str(weather.feels_like))
+                self.win1_feels_like_label.place(x=xpos, y=ypos+40, width=100, height=20)
+                self.win1_pressure_label = tk.Label(self.myfavcanvas, text='压强：'+ str(weather.pressure))
+                self.win1_pressure_label.place(x=xpos, y=ypos+60, width=100, height=20)
+                self.win1_humidity_label = tk.Label(self.myfavcanvas, text='湿度：'+ str(weather.humidity))
+                self.win1_humidity_label.place(x=xpos, y=ypos+80, width=100, height=20)
+                self.win1_description_label = tk.Label(self.myfavcanvas, text='天气描述：'+ weather.description)
+                self.win1_description_label.place(x=xpos, y=ypos+100, width=100, height=20)
+                self.win1_wind_label = tk.Label(self.myfavcanvas, text='风向：'+ weather.wind)
+                self.win1_wind_label.place(x=xpos, y=ypos+120, width=100, height=20)
+                if i <= 4:
+                    xpos += 120
+                    ypos = 60
+                if i > 4:
+                    ypos = 220
+                    if i == 5: 
+                        xpos = 10
+                    else : 
+                        xpos += 120
 
 
 
@@ -508,6 +559,27 @@ class WeatherGUI:
         self.favorite_menu.entryconfigure(2, label='查看收藏')
         self.favorite_language.entryconfigure(0, label='中文')
         self.favorite_language.entryconfigure(1, label='English')
+        # 国际类天气界面
+        self.country_label['text'] = '国家：'
+        self.international_city_label['text'] = '城市：'
+        self.international_date_label['text'] = '日期：'
+        self.international_temperature_label['text'] = '温度：'
+        self.international_feels_like_label['text'] = '体感温度：'
+        self.international_pressure_label['text'] = '压强：'
+        self.international_humidity_label['text'] = '湿度：'
+        self.international_description_label['text'] = '天气描述：'
+        self.international_wind_label['text'] = '风向：'
+        # 收藏界面
+        self.fav_city_label['text'] = '城市：'
+        self.win1_date_label['text'] = '日期：'
+        self.win1_week_label['text'] = '星期：'
+        self.win1_temperature_label['text'] = '温度：'
+        self.win1_humidity_label['text'] = '湿度：'
+        self.win1_wind_label['text'] = '风力风向：'
+        self.win1_dayweather_label['text'] = '白天天气：'
+        self.win1_nightweather_label['text'] = '夜间天气：'
+        self.win1_delete_button['text'] = '删除'
+
     
     def english(self):
         self.city_label['text'] = 'City：'
@@ -525,3 +597,24 @@ class WeatherGUI:
         self.favorite_menu.entryconfigure(2, label='Show favorite')
         self.favorite_language.entryconfigure(0, label='中文')
         self.favorite_language.entryconfigure(1, label='English')
+        # 国际类天气界面
+        self.country_label['text'] = 'Country：'
+        self.international_city_label['text'] = 'City：'
+        self.international_date_label['text'] = 'Date：'
+        self.international_temperature_label['text'] = 'Temperature：'
+        self.international_feels_like_label['text'] = 'Feels Like：'
+        self.international_pressure_label['text'] = 'Pressure：'
+        self.international_humidity_label['text'] = 'Humidity：'
+        self.international_description_label['text'] = 'Description：'
+        self.international_wind_label['text'] = 'Wind：'
+        # 收藏界面
+        self.fav_city_label['text'] = 'City：'
+        self.win1_date_label['text'] = 'Date：'
+        self.win1_week_label['text'] = 'Week：'
+        self.win1_temperature_label['text'] = 'Temperature：'
+        self.win1_humidity_label['text'] = 'Humidity：'
+        self.win1_wind_label['text'] = 'Wind：'
+        self.win1_dayweather_label['text'] = 'DayWeather：'
+        self.win1_nightweather_label['text'] = 'NightWeather：'
+        self.win1_delete_button['text'] = 'Delete'
+
