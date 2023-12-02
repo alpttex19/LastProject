@@ -1,5 +1,6 @@
 import requests
 import json
+import os
 import datetime
 from tkinter import messagebox
 # 天气类
@@ -18,28 +19,77 @@ class Weather:
 # 用来存储我喜爱的城市的天气信息
 class MyFavoriteCity:
     def __init__(self):
-        self.weathers = {}
-    
-    def add_weather(self,city, cityweather):
-        self.weathers[city] = cityweather
-
-    def add_global_weather(self, globalcity, cityweather):
-        self.weathers[globalcity] = cityweather
+        self.weathers = []
+        with open('favorcity.txt', 'r', encoding='utf-8') as f:
+            # 如果文件内容为空，直接返回
+            if os.stat('favorcity.txt').st_size == 0:
+                pass
+            else:
+                for line in f.readlines():
+                    cityinfo = {}
+                    line = line.split()
+                    classofcity = line[0]
+                    nameofcity = line[1]
+                    cityinfo['class'] = classofcity
+                    cityinfo['cityname'] = nameofcity
+                    if classofcity == 'Weather':
+                        codeofcity = line[2]
+                        cityinfo['code'] = codeofcity
+                    elif classofcity == 'GlobalWeather':
+                        lat = line[2]
+                        lon = line[3]
+                        cityinfo['lat'] = lat
+                        cityinfo['lon'] = lon
+                    self.weathers.append(cityinfo)
+        print('---------------------------------')
+        for cityinfo in self.weathers:
+            print('weather.py', cityinfo)
+        print('---------------------------------')
+    def add(self, cityinfo):
+        for city in self.weathers:
+            if city['cityname'] == cityinfo['cityname']:
+                return
+        self.weathers.append(cityinfo)
         
-    def delete_weather(self,city):
-        self.weathers.pop(city)
+    def delete(self, nameofcity):
+        for cityinfo in self.weathers:
+            if cityinfo['cityname'] == nameofcity:
+                self.weathers.remove(cityinfo)
+                break
 
-    def delete_global_weather(self, globalcity):
-        self.weathers.pop(globalcity)
+    def get_classofcity(self, city):
+        for cityinfo in self.weathers:
+            if cityinfo['cityname'] == city:
+                return cityinfo['class']
 
-    def get_weather(self, city):
-        return self.weathers[city]
-
-    def get_global_weather(self, globalcity):
-        return self.weathers[globalcity]
+    def get_city_codes(self, city):
+        for cityinfo in self.weathers:
+            if cityinfo['cityname'] == city:
+                return cityinfo['code']
+        raise Exception('national city not found in favorcitylists')
     
+    def get_city_latlon(self, city):
+        for cityinfo in self.weathers:
+            # print(cityinfo['cityname'], city)
+            if cityinfo['cityname'] == city:
+                return cityinfo['lat'], cityinfo['lon']
+
+        raise Exception('international city not found in favorcitylists')
+
     def get_favor_cityls(self):
-        return self.weathers.keys()     
+        cityls = []
+        for cityinfo in self.weathers:
+            cityls.append(cityinfo['cityname'])
+        return cityls    
+    
+    # 当类要销毁时，将数据写入文件
+    def __del__(self):
+        with open('favorcity.txt', 'w', encoding='utf-8') as f:
+            for cityinfo in self.weathers:
+                if cityinfo['class'] == 'Weather':
+                    f.write(cityinfo['class'] + ' ' + cityinfo['cityname'] + ' ' + str(cityinfo['code']) + '\n')
+                elif cityinfo['class'] == 'GlobalWeather':
+                    f.write(cityinfo['class'] + ' ' + cityinfo['cityname'] + ' ' + str(cityinfo['lat']) + ' ' + str(cityinfo['lon']) + '\n')
             
 # 通过api获取天气信息
 class WeatherGet:
@@ -64,19 +114,19 @@ class WeatherGet:
                                   day['daypower'], day['daywind'], day['dayweather'], day['nightweather'])
                 self.add_weather(weather)
         else:
-            messagebox.showinfo('错误', '无法获取天气信息')
+            raise Exception('weather api error')
    
     def add_weather(self, weather):
         self.weathers.append(weather)
     
-    def get_weather(self, city, date=None):
+    def get_weather(self, date = None):
         for weather in self.weathers:
-            if weather.city == city:
-                # print(weather.date, date)
-                if date == weather.date or (date is None) :
-                    return weather
-        else:
-            print('city not found')
+            # print('124', weather.date, date)
+            if date == None:
+                return weather
+            if date == weather.date:
+                return weather
+        raise Exception('date not found in weather')
             
 class GlobalWeather:
     def __init__(self, country, city, time, temp_max, temp_min, feels_like, pressure, humidity, description, wind):
@@ -118,15 +168,16 @@ class GlobalWeatherGet:
                 self.timelist.append(day['dt_txt'])
                 self.add_weather(weather)
         else:
-            messagebox.showinfo('错误', '无法获取天气信息')
+            raise Exception('globalweather api error')
         
     def add_weather(self, weather):
         self.globalweathers.append(weather)
 
-    def get_weather(self, time):
+    def get_weather(self, time = None):
         for weather in self.globalweathers:
+            if time == None:
+                return weather
             if weather.time == time:
                 return weather
-        else:
-                print('global city not found')
+        raise Exception('time not found in globalweather')
 

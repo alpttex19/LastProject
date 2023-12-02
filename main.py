@@ -19,10 +19,19 @@ from Readfiles import *
 
 
 def main():
-    international_countrys = international_country_info() # international city list
-    cn_citys = national_city_info()              # china city list
-    countryfullnames = national_city_list()
-    GUI = WeatherGUI(cn_citys, international_countrys, countryfullnames)
+    #try:
+        international_countrys = international_country_info() # international city list
+        cn_citys = national_city_info()              # china city list
+        countryfullnames = national_city_list()
+        MyGUI = WeatherGUI(cn_citys, international_countrys, countryfullnames)
+
+    # except Exception as e:
+    #     print(e)
+    #     print('Error: unable to start thread')
+    
+    # finally:
+    #     print('finally')
+    #     #MyGUI.my_favorite_city.__del__()
 
 if __name__ == '__main__':
     main()
