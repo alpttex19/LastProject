@@ -1,0 +1,118 @@
+%!TEX program = pdflatex
+\documentclass[UTF8]{ctexart}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{amsfonts}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{caption}
+\usepackage{enumerate}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{circuitikz}
+\geometry{papersize={21cm,29.7cm}}
+\geometry{left=2.54cm,right=2.54cm,top=3.18cm,bottom=3.18cm}
+\title{天气信息查询应用设计与实现}
+\author{自12班\quad 阿拉帕提·吐尔逊\quad 2019010363}
+\date{\today}
+\pagestyle{fancy}
+\lhead{\today}
+\chead{}
+\rhead{天气信息查询应用设计与实现}
+\lfoot{Python程序设计}
+\cfoot{\thepage}
+\rfoot{智能传感与检测技术}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headwidth}{\textwidth}
+\renewcommand{\footrulewidth}{0pt}
+\newtheorem*{theorem*}{定理}
+\newtheorem{theorem}{定理}
+\newtheorem*{corollary*}{推论}
+\begin{document}
+\maketitle
+
+\section{实验目标}
+
+设计并实现一个天气信息查询应用，通过调用国内和国际天气API接口，
+提供用户友好的图形用户界面，支持实时天气查询、图表展示和用户收藏功能。
+
+\section{实验步骤和内容}
+
+\subsection{API接口选择}
+选择并注册国内和国际天气API接口，用于获取实时天气信息。在本实验中，选择的国内API为高德地图天气API，
+\textcolor{blue}{https://restapi.amap.com/v3/weather/weatherInfo?key={}\&city={}\&extensions=all}，
+国际API为OpenWeatherMap API，
+\textcolor{blue}{http://api.openweathermap.org/data/2.5/forecast?lat={lat}\&lon=\\{lon}\&appid={appid}}。
+
+\subsection{系统设计架构}
+
+设计一个基于tkinter的图形用户界面，通过requests库调用API接口获取天气数据。核心模块包括Weather、WeatherGet、GlobalWeather、GlobalWeatherGet、MyFavoriteCity以及WeatherGUI。
+\begin{itemize}
+   \item Weather类表示天气信息的数据结构，包括城市、日期、温度等信息。
+   \item WeatherGet和GlobalWeatherGet类负责从API获取天气信息，并将其转化为Weather和GlobalWeather对象。
+   \item MyFavoriteCity类用于管理用户收藏的城市和相应的天气信息。
+   \item WeatherGUI类是图形用户界面的核心，负责展示天气信息、图表绘制和用户交互。
+\end{itemize}
+
+\subsection{核心模块详解}
+
+\begin{enumerate}
+   \item `Weather`类
+   \item `WeatherGet`类
+   \item `GlobalWeather`类
+   \item `GlobalWeatherGet`类
+   \item `MyFavoriteCity`类
+   \item `WeatherGUI`类
+\end{enumerate}
+
+\subsection{交互流程}
+\begin{enumerate}
+   \item 国内天气查询：
+         \begin{itemize}
+            \item 用户打开应用，选择国内天气查询。
+            \item 在城市下拉框中选择城市。
+            \item 选择日期。
+            \item 单击“查询”按钮，应用调用高德地图API获取天气信息。
+            \item 显示查询结果，包括实时温度、湿度、风向等。
+            \item 用户可以点击“添加收藏”按钮将城市加入收藏列表。
+         \end{itemize}
+   \item 国际天气查询：
+         \begin{itemize}
+            \item 用户选择国际天气查询。
+            \item 在国家下拉框中选择国家。
+            \item 选择城市。
+            \item 选择时间。
+            \item 单击“查询”按钮，应用调用OpenWeatherMap API获取天气信息。
+            \item 显示查询结果，包括温度、湿度、风向等。
+            \item 用户可以点击“添加收藏”按钮将城市加入收藏列表。
+         \end{itemize}
+   \item 查看收藏列表：
+         \begin{itemize}
+            \item 用户点击“收藏列表”按钮。
+            \item 显示用户已收藏的城市列表。
+            \item 用户可以选择查看某个城市的详细天气信息。
+         \end{itemize}
+   \item 语言切换：
+         \begin{itemize}
+            \item 用户可以通过切换语言按钮选择中文或英文。
+            \item 应用根据选择切换显示语言。
+         \end{itemize}
+\end{enumerate}
+
+
+\subsection{实验扩展}
+
+\begin{itemize}
+   \item 添加用户登录功能，实现用户天气信息的个性化管理。
+   \item 实现天气预报功能，提供未来几天的天气趋势。
+   \item 使用数据库存储用户收藏信息，实现数据持久化。
+\end{itemize}
+以上实验大纲旨在指导学生完成一个简单的天气查询应用，同时提供了一些拓展性的思考。学生可以根据实际情况和实验要求进行适度调整和扩展。
+
+\end{document}

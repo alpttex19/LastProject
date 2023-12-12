@@ -1,7 +1,10 @@
-# 读取city.list.json文件，将每一个个城市信息输出为一行，分别为id, name, state, country, lat, lon
+# Desc: 一些工具函数，如读取文件，写入文件等
+# 用于前期处理网上提供城市信息等数据，将其转换为可用的数据
+# Date: 2019-11-12
+# Author: 阿拉帕提
+
 
 import json
-import os
 
 # 读取json文件
 def read_json_file(file_path):

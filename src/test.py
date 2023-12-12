@@ -14,9 +14,4 @@ responseweather = requests.get(url)
 data = json.loads(responseweather.text)
 print(data)
 
-# api_key = '81509fdfa2136f8c873d16fd812cb8fc'
-# url = 'https://restapi.amap.com/v3/weather/weatherInfo?key={}&city={}&extensions=all'.format(api_key, '北京市')
-# response = requests.get(url)
-# data = json.loads(response.text)
-# print(data)
  

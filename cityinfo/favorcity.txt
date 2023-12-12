@@ -1,0 +1,2 @@
+Weather 北京市 110000
+GlobalWeather Abengourou 6.72972 -3.49639
