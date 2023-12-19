@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.7)  13 DEC 2023 00:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.7)  14 DEC 2023 23:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -671,8 +671,29 @@ File: pgflibrarycurvilinear.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgf@circ@res@count=\count328
 ) (d:/LaTeX/texlive/2022/texmf-dist/tex/generic/circuitikz/pgfcircquadpoles.tex) (d:/LaTeX/texlive/2022/texmf-dist/tex/generic/circuitikz/pgfcircmultipoles.tex) (d:/LaTeX/texlive/2022/texmf-dist/tex/generic/circuitikz/pgfcirclabel.tex) (d:/LaTeX/texlive/2022/texmf-dist/tex/generic/circuitikz/pgfcircvoltage.tex
 \pgfcirc@labelshift=\dimen309
-) (d:/LaTeX/texlive/2022/texmf-dist/tex/generic/circuitikz/pgfcirccurrent.tex) (d:/LaTeX/texlive/2022/texmf-dist/tex/generic/circuitikz/pgfcircflow.tex))
-\c@theorem=\count329
+) (d:/LaTeX/texlive/2022/texmf-dist/tex/generic/circuitikz/pgfcirccurrent.tex) (d:/LaTeX/texlive/2022/texmf-dist/tex/generic/circuitikz/pgfcircflow.tex)) (d:/LaTeX/texlive/2022/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count329
+\lst@gtempboxa=\box114
+\lst@token=\toks46
+\lst@length=\count330
+\lst@currlwidth=\dimen310
+\lst@column=\count331
+\lst@pos=\count332
+\lst@lostspace=\dimen311
+\lst@width=\dimen312
+\lst@newlines=\count333
+\lst@lineno=\count334
+\lst@maxwidth=\dimen313
+ (d:/LaTeX/texlive/2022/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+\c@lstnumber=\count335
+\lst@skipnumbers=\count336
+\lst@framebox=\box115
+) (d:/LaTeX/texlive/2022/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2020/03/24 1.8d listings configuration
+))
+Package: listings 2020/03/24 1.8d (Carsten Heinz)
+\c@theorem=\count337
  (d:/LaTeX/texlive/2022/texmf-dist/tex/latex/cjk/texinput/UTF8/UTF8.bdg
 File: UTF8.bdg 2021/10/16 4.8.5
 ) (d:/LaTeX/texlive/2022/texmf-dist/tex/latex/cjk/texinput/UTF8/UTF8.enc
@@ -682,97 +703,97 @@ File: UTF8.chr 2021/10/16 4.8.5
 ) (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C00/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C05/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C09/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C10/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C20/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C19/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C40/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C42/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C43/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C50/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C52/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C49/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C60/mj/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C61/mj/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C63/mj/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C64/mj/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C65/mj/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C70/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C31/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C32/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C33/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C34/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C35/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C36/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C37/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C80/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C81/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C01/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C11/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C21/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C41/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for C62/song/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C00/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C05/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C09/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C10/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C20/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C19/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C40/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C42/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C43/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C50/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C52/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C49/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C60/mj/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C61/mj/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C63/mj/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C64/mj/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C65/mj/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C70/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C31/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C32/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C33/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C34/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C35/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C36/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C37/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C80/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C81/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C01/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C11/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C21/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C41/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for C62/song/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
  (d:/LaTeX/texlive/2022/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count330
-\scratchdimen=\dimen310
-\scratchbox=\box114
-\nofMPsegments=\count331
-\nofMParguments=\count332
-\everyMPshowfont=\toks46
-\MPscratchCnt=\count333
-\MPscratchDim=\dimen311
-\MPnumerator=\count334
-\makeMPintoPDFobject=\count335
-\everyMPtoPDFconversion=\toks47
+\scratchcounter=\count338
+\scratchdimen=\dimen314
+\scratchbox=\box116
+\nofMPsegments=\count339
+\nofMParguments=\count340
+\everyMPshowfont=\toks47
+\MPscratchCnt=\count341
+\MPscratchDim=\dimen315
+\MPnumerator=\count342
+\makeMPintoPDFobject=\count343
+\everyMPtoPDFconversion=\toks48
 ) (d:/LaTeX/texlive/2022/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -815,60 +836,58 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
+Package caption Info: listings package is loaded.
 Package caption Info: subfigure package is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Trying to load font information for C70+rm on input line 38.
+\c@lstlisting=\count344
+LaTeX Font Info:    Trying to load font information for C70+rm on input line 39.
 (d:/LaTeX/texlive/2022/texmf-dist/tex/latex/ctex/fd/c70rm.fd
 File: c70rm.fd 2021/12/12 v2.5.8 Chinese font definition (CTEX)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 38.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 39.
  (d:/LaTeX/texlive/2022/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 38.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 39.
  (d:/LaTeX/texlive/2022/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 38.
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 39.
  (d:/LaTeX/texlive/2022/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
+) (d:/LaTeX/texlive/2022/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
 )
-Package CJKpunct Info: use punctuation spaces for family 'rm' with punctstyle (quanjiao) on input line 42.
-
-Overfull \hbox (3.21054pt too wide) in paragraph at lines 48--52
-[]\C70/rm/m/n/10.53937/90 	 \C70/rm/m/n/10.53937/62 é \C70/rm/m/n/10.53937/5e v \C70/rm/m/n/10.53937/6c è \C70/rm/m/n/10.53937/51 Œ \C70/rm/m/n/10.53937/56 ý \C70/rm/m/n/10.53937/51 … \C70/rm/m/n/10.53937/54 Œ \C70/rm/m/n/10.53937/56 ý \C70/rm/m/n/10.53937/96 E \C70/rm/m/n/10.53937/59 ) \C70/rm/m/n/10.53937/6c ^^T\OT1/cmr/m/n/10.53937 API\C70/rm/m/n/10.53937/63 ¥ \C70/rm/m/n/10.53937/53 ã|\C70/rm/m/n/10.53937/ff ^^L| \C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/4e Ž \C70/rm/m/n/10.53937/83 · \C70/rm/m/n/10.53937/53 Ö \C70/rm/m/n/10.53937/5b ž \C70/rm/m/n/10.53937/65 ö \C70/rm/m/n/10.53937/59 ) \C70/rm/m/n/10.53937/6c ^^T \C70/rm/m/n/10.53937/4f á \C70/rm/m/n/10.53937/60 o|\C70/rm/m/n/10.53937/30 ^^B| \C70/rm/m/n/10.53937/57 ( \C70/rm/m/n/10.53937/67 , \C70/rm/m/n/10.53937/5b ž \C70/rm/m/n/10.53937/9a Œ \C70/rm/m/n/10.53937/4e -|\C70/rm/m/n/10.53937/ff ^^L| \C70/rm/m/n/10.53937/90 	 \C70/rm/m/n/10.53937/62 é \C70/rm/m/n/10.53937/76 „ \C70/rm/m/n/10.53937/56 ý \C70/rm/m/n/10.53937/51 …\OT1/cmr/m/n/10.53937 API\C70/rm/m/n/10.53937/4e :
- []
-
-
-Overfull \hbox (17.45126pt too wide) in paragraph at lines 48--52
-\C70/rm/m/n/10.53937/9a Ø \C70/rm/m/n/10.53937/5f · \C70/rm/m/n/10.53937/57 0 \C70/rm/m/n/10.53937/56 þ \C70/rm/m/n/10.53937/59 ) \C70/rm/m/n/10.53937/6c ^^T\OT1/cmr/m/n/10.53937 API|\C70/rm/m/n/10.53937/ff ^^L|  []\OT1/cmr/m/n/10.53937 https://restapi.amap.com/v3/weather/weatherInfo?key=&city=&extensions=all[]|\C70/rm/m/n/10.53937/ff ^^L|
- []
-
-
-Overfull \hbox (13.69218pt too wide) in paragraph at lines 48--52
-\C70/rm/m/n/10.53937/56 ý \C70/rm/m/n/10.53937/96 E\OT1/cmr/m/n/10.53937 API\C70/rm/m/n/10.53937/4e :\OT1/cmr/m/n/10.53937 OpenWeatherMap API|\C70/rm/m/n/10.53937/ff ^^L|  []\OT1/cmr/m/n/10.53937 http://api.openweathermap.org/data/2.5/forecast?lat=lat&lon= 
- []
-
-
-Overfull \hbox (13.48985pt too wide) in paragraph at lines 55--56
-\C70/rm/m/n/10.53937/53 ^^E \C70/rm/m/n/10.53937/62 ì\OT1/cmr/m/n/10.53937 Weather|\C70/rm/m/n/10.53937/30 ^^A| \OT1/cmr/m/n/10.53937 WeatherGet|\C70/rm/m/n/10.53937/30 ^^A| \OT1/cmr/m/n/10.53937 GlobalWeather|\C70/rm/m/n/10.53937/30 ^^A| \OT1/cmr/m/n/10.53937 GlobalWeatherGet|\C70/rm/m/n/10.53937/30 ^^A| \OT1/cmr/m/n/10.53937 MyFavoriteCity\C70/rm/m/n/10.53937/4e å \C70/rm/m/n/10.53937/53 Ê\OT1/cmr/m/n/10.53937 WeatherGUI|\C70/rm/m/n/10.53937/30 ^^B|
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 55--56
-
- []
-
-
-Overfull \hbox (50.49014pt too wide) in paragraph at lines 58--59
-[]\OT1/cmr/m/n/10.53937 WeatherGet\C70/rm/m/n/10.53937/54 Œ\OT1/cmr/m/n/10.53937 GlobalWeatherGet\C70/rm/m/n/10.53937/7c { \C70/rm/m/n/10.53937/8d ^^_ # \C70/rm/m/n/10.53937/4e Î\OT1/cmr/m/n/10.53937 API\C70/rm/m/n/10.53937/83 · \C70/rm/m/n/10.53937/53 Ö \C70/rm/m/n/10.53937/59 ) \C70/rm/m/n/10.53937/6c ^^T \C70/rm/m/n/10.53937/4f á \C70/rm/m/n/10.53937/60 o|\C70/rm/m/n/10.53937/ff ^^L| \C70/rm/m/n/10.53937/5e v \C70/rm/m/n/10.53937/5c ^^F \C70/rm/m/n/10.53937/51 v \C70/rm/m/n/10.53937/8f l \C70/rm/m/n/10.53937/53 ^^V \C70/rm/m/n/10.53937/4e :\OT1/cmr/m/n/10.53937 Weather\C70/rm/m/n/10.53937/54 Œ\OT1/cmr/m/n/10.53937 GlobalWeather\C70/rm/m/n/10.53937/5b ù
- []
-
-(d:/LaTeX/texlive/2022/texmf-dist/tex/generic/ctex/zhmap/ctex-zhmap-windows.tex
+Package CJKpunct Info: use punctuation spaces for family 'rm' with punctstyle (quanjiao) on input line 54.
+ (d:/LaTeX/texlive/2022/texmf-dist/tex/generic/ctex/zhmap/ctex-zhmap-windows.tex
 File: ctex-zhmap-windows.tex 2021/12/12 v2.5.8 Windows font map loader for pdfTeX and DVIPDFMx (CTEX)
 {d:/LaTeX/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{UGBK.sfd}{Unicode.sfd}) [1
 
 ]
+Overfull \hbox (23.20653pt too wide) in paragraph at lines 84--88
+[]\C70/rm/m/n/10.53937/57 ( \C70/rm/m/n/10.53937/67 , \C70/rm/m/n/10.53937/5b ž \C70/rm/m/n/10.53937/9a Œ \C70/rm/m/n/10.53937/4e -|\C70/rm/m/n/10.53937/ff ^^L| \C70/rm/m/n/10.53937/90 	 \C70/rm/m/n/10.53937/62 é \C70/rm/m/n/10.53937/76 „ \C70/rm/m/n/10.53937/56 ý \C70/rm/m/n/10.53937/51 …\OT1/cmr/m/n/10.53937 API\C70/rm/m/n/10.53937/4e : \C70/rm/m/n/10.53937/9a Ø \C70/rm/m/n/10.53937/5f · \C70/rm/m/n/10.53937/57 0 \C70/rm/m/n/10.53937/56 þ \C70/rm/m/n/10.53937/59 ) \C70/rm/m/n/10.53937/6c ^^T\OT1/cmr/m/n/10.53937 API|\C70/rm/m/n/10.53937/ff ^^L|  []\OT1/cmr/m/n/10.53937 https://restapi.amap.com/v3/weather/weather 
+ []
+
+
+Overfull \hbox (12.5211pt too wide) in paragraph at lines 89--93
+[]\C70/rm/m/n/10.53937/56 ý \C70/rm/m/n/10.53937/96 E\OT1/cmr/m/n/10.53937 API\C70/rm/m/n/10.53937/4e :\OT1/cmr/m/n/10.53937 OpenWeatherMap API|\C70/rm/m/n/10.53937/ff ^^L|  []\OT1/cmr/m/n/10.53937 http://api.openweathermap.org/data/2.5/forecast?lat=lat& 
+ []
+
+
+Overfull \hbox (10.91371pt too wide) in paragraph at lines 95--97
+\C70/rm/m/n/10.53937/53 ^^E \C70/rm/m/n/10.53937/62 ì\OT1/cmr/m/n/10.53937 Weather(GlobalWeather)|\C70/rm/m/n/10.53937/30 ^^A| \OT1/cmr/m/n/10.53937 WeatherGet(GlobalWeatherGet)|\C70/rm/m/n/10.53937/30 ^^A| \OT1/cmr/m/n/10.53937 MyFavoriteCity\C70/rm/m/n/10.53937/4e å \C70/rm/m/n/10.53937/53 Ê\OT1/cmr/m/n/10.53937 WeatherGUI|\C70/rm/m/n/10.53937/30 ^^B|
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 95--97
+
+ []
+
+
+Overfull \hbox (12.10942pt too wide) in paragraph at lines 114--115
+[]\OT1/cmr/m/n/10.53937 WeatherGUI\C70/rm/m/n/10.53937/7c { \C70/rm/m/n/10.53937/53 ^^E \C70/rm/m/n/10.53937/54 +[][]\OT1/cmr/m/n/10.53937 init[][]()|\C70/rm/m/n/10.53937/30 ^^A| \OT1/cmr/m/n/10.53937 update[]weather()|\C70/rm/m/n/10.53937/30 ^^A| \OT1/cmr/m/n/10.53937 create[]menu()|\C70/rm/m/n/10.53937/30 ^^A| \OT1/cmr/m/n/10.53937 national()|\C70/rm/m/n/10.53937/30 ^^A| \OT1/cmr/m/n/10.53937 international()|\C70/rm/m/n/10.53937/30 ^^A|
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.64723pt, for example:
@@ -877,6 +896,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
 [2]
+<pic1.png, id=168, 598.235pt x 332.74312pt>
+File: pic1.png Graphic file (type png)
+<use pic1.png>
+Package pdftex.def Info: pic1.png  used on input line 138.
+(pdftex.def)             Requested size: 362.37598pt x 201.55644pt.
+<pic2.png, id=170, 690.07813pt x 220.32312pt>
+File: pic2.png Graphic file (type png)
+<use pic2.png>
+Package pdftex.def Info: pic2.png  used on input line 144.
+(pdftex.def)             Requested size: 362.37598pt x 115.69826pt.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.64723pt, for example:
@@ -884,20 +914,199 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
-[3] (./report.aux) ) 
+[3 <./pic1.png>]
+<pic3.png, id=184, 684.05562pt x 218.8175pt>
+File: pic3.png Graphic file (type png)
+<use pic3.png>
+Package pdftex.def Info: pic3.png  used on input line 153.
+(pdftex.def)             Requested size: 362.37598pt x 115.9193pt.
+<pic4.png, id=186, 462.22687pt x 162.6075pt>
+File: pic4.png Graphic file (type png)
+<use pic4.png>
+Package pdftex.def Info: pic4.png  used on input line 159.
+(pdftex.def)             Requested size: 362.37598pt x 127.48093pt.
+<pic5.png, id=188, 685.05937pt x 283.0575pt>
+File: pic5.png Graphic file (type png)
+<use pic5.png>
+Package pdftex.def Info: pic5.png  used on input line 165.
+(pdftex.def)             Requested size: 362.37598pt x 149.73468pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[4 <./pic2.png> <./pic3.png> <./pic4.png>]
+<pic6.png, id=200, 677.53125pt x 512.41437pt>
+File: pic6.png Graphic file (type png)
+<use pic6.png>
+Package pdftex.def Info: pic6.png  used on input line 174.
+(pdftex.def)             Requested size: 362.37598pt x 274.07251pt.
+<pica.png, id=201, 882.29625pt x 322.20375pt>
+File: pica.png Graphic file (type png)
+<use pica.png>
+Package pdftex.def Info: pica.png  used on input line 189.
+(pdftex.def)             Requested size: 362.37598pt x 132.33545pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[5 <./pic5.png> <./pic6.png>]
+<picb.png, id=211, 768.37062pt x 254.9525pt>
+File: picb.png Graphic file (type png)
+<use picb.png>
+Package pdftex.def Info: picb.png  used on input line 195.
+(pdftex.def)             Requested size: 362.37598pt x 120.24005pt.
+<picc.png, id=212, 653.94313pt x 175.15437pt>
+File: picc.png Graphic file (type png)
+<use picc.png>
+Package pdftex.def Info: picc.png  used on input line 201.
+(pdftex.def)             Requested size: 362.37598pt x 97.05948pt.
+<picd.png, id=213, 739.76375pt x 206.7725pt>
+File: picd.png Graphic file (type png)
+<use picd.png>
+Package pdftex.def Info: picd.png  used on input line 207.
+(pdftex.def)             Requested size: 362.37598pt x 101.28786pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[6 <./pica.png> <./picb.png> <./picc.png>]
+<pice.png, id=220, 694.595pt x 635.37375pt>
+File: pice.png Graphic file (type png)
+<use pice.png>
+Package pdftex.def Info: pice.png  used on input line 216.
+(pdftex.def)             Requested size: 362.37598pt x 331.49179pt.
+<pica1.png, id=221, 875.27pt x 501.37312pt>
+File: pica1.png Graphic file (type png)
+<use pica1.png>
+Package pdftex.def Info: pica1.png  used on input line 226.
+(pdftex.def)             Requested size: 362.37598pt x 207.57634pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[7 <./picd.png> <./pice.png>]
+<pica2.png, id=229, 709.14937pt x 476.27937pt>
+File: pica2.png Graphic file (type png)
+<use pica2.png>
+Package pdftex.def Info: pica2.png  used on input line 232.
+(pdftex.def)             Requested size: 362.37598pt x 243.38617pt.
+<pica3.png, id=230, 747.29187pt x 305.64188pt>
+File: pica3.png Graphic file (type png)
+<use pica3.png>
+Package pdftex.def Info: pica3.png  used on input line 238.
+(pdftex.def)             Requested size: 362.37598pt x 148.2128pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[8 <./pica1.png> <./pica2.png>]
+<pica4.png, id=236, 682.55pt x 502.87875pt>
+File: pica4.png Graphic file (type png)
+<use pica4.png>
+Package pdftex.def Info: pica4.png  used on input line 244.
+(pdftex.def)             Requested size: 362.37598pt x 266.98486pt.
+<picb1.png, id=238, 441.14813pt x 78.79437pt>
+File: picb1.png Graphic file (type png)
+<use picb1.png>
+Package pdftex.def Info: picb1.png  used on input line 261.
+(pdftex.def)             Requested size: 362.37598pt x 64.72722pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[9 <./pica3.png> <./pica4.png>]
+<picb2.png, id=247, 602.25pt x 412.54124pt>
+File: picb2.png Graphic file (type png)
+<use picb2.png>
+Package pdftex.def Info: picb2.png  used on input line 274.
+(pdftex.def)             Requested size: 362.37598pt x 248.23798pt.
+<picb3.png, id=248, 602.25pt x 412.54124pt>
+File: picb3.png Graphic file (type png)
+<use picb3.png>
+Package pdftex.def Info: picb3.png  used on input line 286.
+(pdftex.def)             Requested size: 362.37598pt x 248.23798pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[10 <./picb1.png> <./picb2.png>]
+<picb4.png, id=254, 803.0pt x 412.54124pt>
+File: picb4.png Graphic file (type png)
+<use picb4.png>
+Package pdftex.def Info: picb4.png  used on input line 300.
+(pdftex.def)             Requested size: 362.37598pt x 186.17691pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[11 <./picb3.png>]
+<picb5.png, id=259, 803.0pt x 412.54124pt>
+File: picb5.png Graphic file (type png)
+<use picb5.png>
+Package pdftex.def Info: picb5.png  used on input line 311.
+(pdftex.def)             Requested size: 362.37598pt x 186.17691pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[12 <./picb4.png> <./picb5.png>]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[13] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 35023 strings out of 478268
- 847597 string characters out of 5847352
- 1333342 words of memory out of 5000000
- 52547 multiletter control sequences out of 15000+600000
- 509879 words of font info for 175 fonts, out of 8000000 for 9000
+ 37033 strings out of 478268
+ 876370 string characters out of 5847352
+ 1537248 words of memory out of 5000000
+ 54454 multiletter control sequences out of 15000+600000
+ 520987 words of font info for 216 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 103i,11n,105p,1237b,350s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc>{d:/LaTeX/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><d:/LaTeX/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><d:/LaTeX/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:/LaTeX/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><d:/LaTeX/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb><d:/LaTeX/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on report.pdf (3 pages, 390963 bytes).
+ 103i,11n,105p,1237b,564s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc>{d:/LaTeX/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><d:/LaTeX/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><d:/LaTeX/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><d:/LaTeX/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:/LaTeX/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><d:/LaTeX/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb><d:/LaTeX/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on report.pdf (13 pages, 2697925 bytes).
 PDF statistics:
- 438 PDF objects out of 1000 (max. 8388607)
- 276 compressed objects within 3 object streams
+ 628 PDF objects out of 1000 (max. 8388607)
+ 378 compressed objects within 4 object streams
  0 named destinations out of 1000 (max. 500000)
- 257 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 397 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -124,16 +124,15 @@ class WeatherGUI:
         self.menu = tk.Menu(self.root)
         self.root.config(menu=self.menu)
         self.favorite_menu = tk.Menu(self.menu, tearoff=False)
-        self.menu.add_cascade(label='                ')
         self.menu.add_cascade(label='收藏', menu=self.favorite_menu)
         self.favorite_menu.add_command(label='添加至收藏', command=self.add_favorite)
         self.favorite_menu.add_command(label='我的收藏', command=self.show_favorite)
-        self.menu.add_cascade(label='                ')
+        
         self.favorite_language = tk.Menu(self.menu, tearoff=False)
         self.menu.add_cascade(label = '语言/language', menu = self.favorite_language)
         self.favorite_language.add_command(label='中文', command=self.chinese)
         self.favorite_language.add_command(label='English', command=self.english)
-        self.menu.add_cascade(label='                ')
+
         self.na_interna = tk.Menu(self.menu, tearoff=False)
         self.menu.add_cascade(label = '国内/国际', menu = self.na_interna)
         self.na_interna.add_command(label='国内', command=self.national)
@@ -234,9 +233,6 @@ class WeatherGUI:
 
     # 城市下拉框选择事件
     def city_combobox_selected(self, event):
-        """
-        the city combobox selected event, update the weather information according to the selected city
-        """
         self.citysearch_entry.delete(0, tk.END) # 清空搜索框中的内容
         selected_date = self.date.get()  # 获取当前选择的日期
         city_name = self.city.get()  # 获取用户选择的新城市名
@@ -245,12 +241,8 @@ class WeatherGUI:
         new_weather = self.weather_get.get_weather(selected_date)
         # 更新 GUI 显示的天气信息
         self.update_weather_info(new_weather)
-    
     # 日期下拉框选择事件
     def date_combobox_selected(self, event):
-        """
-        the date combobox selected event, update the weather information according to the selected date
-        """
         selected_date = self.date.get()  # 获取当前选择的日期
         new_weather = self.weather_get.get_weather(selected_date)
         # 更新 GUI 显示的天气信息
@@ -258,38 +250,17 @@ class WeatherGUI:
 
     # 更新 GUI 上的天气信息显示，根据传入的天气信息（例如温度、湿度等）
     def update_weather_info(self, weather_info):
-        """
-        the function is called to update the weather information
-        """
         self.temperature_entry.delete(0, tk.END)  # 清空温度 Entry 中的内容
-        self.temperature_entry.insert(0,  '{}~{}'.format(weather_info.nighttemperature, weather_info.daytemperature))  # 显示新的温度信息
-
-        self.humidity_entry.delete(0, tk.END)  # 清空湿度 Entry 中的内容
-        self.humidity_entry.insert(0, weather_info.humidity)  # 显示新的湿度信息
-
-        self.wind_entry.delete(0, tk.END)  # 清空风力风向 Entry 中的内容
-        self.wind_entry.insert(0, weather_info.wind)
-
-        self.dayweather_entry.delete(0, tk.END)  # 清空白天天气 Entry 中的内容
-        self.dayweather_entry.insert(0, weather_info.dayweather)
-
-        self.nightweather_entry.delete(0, tk.END)  # 清空夜间天气 Entry 中的内容
-        self.nightweather_entry.insert(0, weather_info.nightweather)
-
-        self.week_entry.delete(0, tk.END)  # 清空星期 Entry 中的内容
+        # ............
         self.week_entry.insert(0, weather_info.week)
 
         self.draw_tempreture(self.maincanvas, self.weather_get)
-
         # 更新上次更新的时间
         self.last_update_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         self.last_update_time_label.config(text = self.last_update_time)
 
     # 搜索框输入事件
     def search(self,event):
-        """
-        the search event, update the search result listbox according to the input
-        """
         # 获取输入框的内容
         content = self.citysearch_entry.get()
         # 在城市代码中搜索可能的城市
@@ -301,19 +272,14 @@ class WeatherGUI:
     
     # 搜索结果列表框点击事件
     def on_select(self,event):
-        """
-        if the user select the city in the search result listbox, the city name will be filled in the search entry
-        """
-        selected_city = self.search_results_listbox.get(self.search_results_listbox.curselection())
+        selected_city = self.search_results_listbox.get(
+            self.search_results_listbox.curselection())
         # 将选中的城市填充到输入框中
         self.citysearch_entry.delete(0, tk.END)
         self.citysearch_entry.insert(0, selected_city)
 
     # 搜索按钮点击事件
     def citysearch_button_clicked(self):
-        """
-        the search button clicked event, update the weather information according to the input
-        """
         self.search_results_listbox.delete(0, tk.END)
         city_name = self.citysearch_entry.get()
         if city_name in self.city_code.keys():
@@ -326,11 +292,8 @@ class WeatherGUI:
         else:
             messagebox.showinfo('错误', '无法获取天气信息')
 
-        # 根据当前选择的城市天气信息，画出温度变化图
+    # 根据当前选择的城市天气信息，画出温度变化图
     def draw_tempreture(self, tmp_canvas, weather_get):
-        """
-        draw the temperature change graph, and put it in the canvas
-        """
         x_values = self.weather_get.datelist
         y1_values = []
         y2_values = []
@@ -341,7 +304,6 @@ class WeatherGUI:
         a = fig.add_subplot(111)
         a.plot(x_values, y1_values, label='day')
         a.plot(x_values, y2_values, label='night')
-
         # 在每个点上显示温度数值
         for i, txt in enumerate(y1_values):
             a.annotate(txt, (x_values[i], y1_values[i]))
@@ -436,56 +398,49 @@ class WeatherGUI:
         else:
             self.english()
 
+    
+    # 国家下拉框选择事件
     def country_combobox_selected(self, event): 
-        """
-        the country combobox selected event, update the international city combobox according to the selected country
-        """
-        self.international_city_combobox['values'] = list(national_citys(self.international_countrys, self.countryfullnames[self.country.get()])) # 根据选定的城市列表更新城市下拉框
-        self.country2city.set(list(national_citys(self.international_countrys, self.countryfullnames[self.country.get()]))[0])
-        self.citylat, self.citylon = citys_lat_lon(self.international_countrys, self.countryfullnames[self.country.get()], self.country2city.get())
+        self.international_city_combobox['values'] = list( # 根据选定的城市列表更新城市下拉框
+            national_citys(self.international_countrys, self.countryfullnames[self.country.get()]))
+        self.country2city.set(list(national_citys( # 设置默认城市为城市列表中的第一个
+            self.international_countrys, self.countryfullnames[self.country.get()]))[0])
+        self.citylat, self.citylon = citys_lat_lon( # 获取城市的经纬度
+            self.international_countrys, self.countryfullnames[self.country.get()], self.country2city.get())
+        # 根据经纬度获取天气信息
         self.globalweather_get = GlobalWeatherGet(self.citylat, self.citylon)
         self.globalweather = self.globalweather_get.get_weather(self.international_time.get())
+        # 更新天气信息
         self.international_weather_update()
+        # 画出温度变化图
         self.draw_international_tempreture(self.secondcanvas, self.globalweather_get)
 
+    # 国际城市下拉框选择事件
     def international_city_combobox_selected(self, event):
-        """
-        the international city combobox selected event, update the weather information according to the selected international city
-        """
-        self.citylat, self.citylon = citys_lat_lon(self.international_countrys, self.countryfullnames[self.country.get()], self.country2city.get())
+        self.citylat, self.citylon = citys_lat_lon( # 获取城市的经纬度
+            self.international_countrys, self.countryfullnames[
+                self.country.get()], self.country2city.get())
+        # 根据经纬度获取天气信息
         self.globalweather_get = GlobalWeatherGet(self.citylat, self.citylon)
         self.globalweather = self.globalweather_get.get_weather(self.international_time.get())
+        # 更新天气信息
         self.international_weather_update()
+        # 画出温度变化图
         self.draw_international_tempreture(self.secondcanvas, self.globalweather_get)
     
+    # 国际日期下拉框选择事件
     def international_time_combobox_selected(self, event):
-        """
-        the international time combobox selected event, update the weather information according to the selected international time 
-        """
+        # 获取当前选择的日期
         selected_time = self.international_time.get()
+        # 根据时间获取天气信息
         self.globalweather = self.globalweather_get.get_weather(selected_time)
+        # 更新天气信息
         self.international_weather_update()
 
     def international_weather_update(self):
-        """
-        the function is called to update the international weather information
-        """
+        # 更新 GUI 显示的天气信息
         self.international_temperature_entry.delete(0, tk.END)  # 清空温度 Entry 中的内容
-        self.international_temperature_entry.insert(0,  '{}~{}'.format(self.globalweather.temp_min, self.globalweather.temp_max))  # 显示新的温度信息
-
-        self.international_feels_like_entry.delete(0, tk.END)  # 清空体感温度 Entry 中的内容
-        self.international_feels_like_entry.insert(0, self.globalweather.feels_like)  # 显示新的体感温度信息
-
-        self.international_pressure_entry.delete(0, tk.END)  # 清空压强 Entry 中的内容
-        self.international_pressure_entry.insert(0, self.globalweather.pressure)  # 显示新的压强信息
-
-        self.international_humidity_entry.delete(0, tk.END)  # 清空湿度 Entry 中的内容
-        self.international_humidity_entry.insert(0, self.globalweather.humidity)  # 显示新的湿度信息
-
-        self.international_description_entry.delete(0, tk.END)  # 清空天气描述 Entry 中的内容
-        self.international_description_entry.insert(0, self.globalweather.description)  # 显示新的天气描述信息
-
-        self.international_wind_entry.delete(0, tk.END)  # 清空风向 Entry 中的内容
+        # ................
         self.international_wind_entry.insert(0, self.globalweather.wind)  # 显示新的风向信息
 
         # 更新上次更新的时间
@@ -494,27 +449,18 @@ class WeatherGUI:
 
     # 根据当前选择的城市天气信息，画出温度变化图
     def draw_international_tempreture(self, tmp_canvas, globalweather_get):
-        """
-        draw the international temperature change graph, and put it in the canvas
-        """
         x_values = list(globalweather_get.timelist)
         y1_values = []
-        # y2_values = []
         for x_value in x_values:
             y1_values.append(globalweather_get.get_weather(x_value).temp_max)
-            # y2_values.append(globalweather_get.get_weather(x_value).temp_min)
         fig = Figure(figsize=(35,2), dpi=100)
         a = fig.add_subplot(111)
         # 只显示x_values的形式是2023-12-1 18:00:00，只留下12:1 18
         x_values = [x_value[8:10] + '/' + x_value[11:13]+'' for x_value in x_values]
         a.plot(x_values, y1_values, label='time')
-        # a.plot(x_values, y2_values, label='night')
-
         # 在每个点上显示温度数值
         for i, txt in enumerate(y1_values):
             a.annotate(txt, (x_values[i], y1_values[i]))
-        # for i, txt in enumerate(y2_values):
-        #     a.annotate(txt, (x_values[i], y2_values[i]))
         a.set_xlabel('date')
         a.set_ylabel('temperature/℃')
         a.set_axis_on()
@@ -522,15 +468,11 @@ class WeatherGUI:
         # 创建一个可滚动的画布
         scroll_canvas = Canvas(tmp_canvas)
         scroll_canvas.place(x=50, y=220, width=500, height=200)
-
         # 创建一个滚动条
         scrollbar = Scrollbar(tmp_canvas, orient="horizontal", command=scroll_canvas.xview, width = 30)
         scrollbar.place(x=50, y=430, width=500, height=20)
-        #scrollbar.pack(side="bottom", fill="x")
-
         # 将滚动条连接到画布
         scroll_canvas.configure(xscrollcommand=scrollbar.set)
-
         # 创建一个Frame，将其添加到画布中
         frame = Frame(scroll_canvas)
         scroll_canvas.create_window((500,200), window=frame, anchor='center')
@@ -538,7 +480,6 @@ class WeatherGUI:
         canvas = FigureCanvasTkAgg(fig, master=frame)
         canvas.draw()
         canvas.get_tk_widget().pack(side="left", fill="both", expand=True) # 将画布填充到Frame中
-
         # 更新画布的滚动区域
         frame.update_idletasks()
         scroll_canvas.configure(scrollregion=scroll_canvas.bbox('all'))
@@ -571,9 +512,6 @@ class WeatherGUI:
     
     # 添加到收藏
     def add_favorite(self):
-        """
-        add the city to the favorite city list
-        """
         #如果当前页面是self.maincanvas，则添加到收藏
         if self.maincanvas.winfo_ismapped():
             cityinfo = {}
@@ -584,7 +522,8 @@ class WeatherGUI:
             messagebox.showinfo('提示', '添加成功')
         # 如果当前页面是self.secondcanvas，将国际类的天气信息添加到收藏
         elif self.secondcanvas.winfo_ismapped():
-            self.citylat, self.citylon = citys_lat_lon(self.international_countrys, self.countryfullnames[self.country.get()], self.country2city.get())
+            self.citylat, self.citylon = citys_lat_lon(
+                self.international_countrys, self.countryfullnames[self.country.get()], self.country2city.get())
             cityinfo = {}
             cityinfo['class'] = self.globalweather.__class__.__name__
             cityinfo['cityname'] = self.country2city.get()
@@ -597,9 +536,6 @@ class WeatherGUI:
 
     # 从收藏中删除
     def delete_favorite(self):
-        """
-        delete the city from the favorite city list
-        """
         self.my_favorite_city.delete(self.fav_city_combobox.get())
         # 如果收藏夹空的，则关掉my_favorite_window窗口
         if len(self.my_favorite_city.get_favor_cityls()) == 0:
@@ -616,140 +552,23 @@ class WeatherGUI:
 
     # 收藏界面城市下拉框选择事件
     def fav_city_combobox_selected(self,event):
-        """
-        the favorite city combobox selected event, update the weather information according to the selected favorite city
-        """
         # 清空页面上的信息, y = 60及以上的信息保留
         for widget in self.myfavcanvas.winfo_children():
             if widget.winfo_y() > 50:
                 widget.destroy()
-        # print(self.fav_city_combobox.get())
         # 如果选择的城市是国内类的天气信息
         if self.my_favorite_city.get_classofcity(self.my_fav_city.get()) == 'Weather':
-            # 获取城市代码
             citycode = self.my_favorite_city.get_city_codes(self.my_fav_city.get())
-            # 获取天气信息
             weatherget = WeatherGet(citycode)
-            weather = weatherget.get_weather()
-            # 将当天温度信息用大字显示在x = 20，y = 60的位置
-            self.win1_temperature_label0 = tk.Label(self.myfavcanvas, text='温度',bg='white')
-            self.win1_temperature_label0['font'] = tkFont.Font(size=15)
-            self.win1_temperature_label0.place(x=10, y=60, width=120, height=30)
-            self.win1_temperature = tk.Label(self.myfavcanvas,text='{}'.format(weather.daytemperature),bg='white')
-            self.win1_temperature['font'] = tkFont.Font(size=100)
-            self.win1_temperature.place(x=20, y=90, width=120, height=115)
-            # 在x = 140处画一条黑线，分割左右
-            self.win1_line = tk.Label(self.myfavcanvas, text=' ',bg='black')
-            self.win1_line.place(x=175, y=60, width=1, height=145)
-            # 将天气信息用label的形式显示在x = 140，y = 60的位置
-            self.win1_week_label = tk.Label(self.myfavcanvas, text='星期：', bg='white',anchor='w')
-            self.win1_week_label['font'] = tkFont.Font(size=15)
-            self.win1_week_label.place(x=180, y=60, width=100, height=25)
-            self.win1_week = tk.Label(self.myfavcanvas,text='{}'.format(weather.week),bg='white')
-            self.win1_week['font'] = tkFont.Font(size=20)
-            self.win1_week.place(x=280, y=60, width=300, height=25)
-            # 温度信息
-            self.win1_temperature_label = tk.Label(self.myfavcanvas, text='温度：', anchor='w',bg='white')
-            self.win1_temperature_label['font'] = tkFont.Font(size=15)
-            self.win1_temperature_label.place(x=180, y=90, width=100, height=25)
-            self.win1_temperature = tk.Label(self.myfavcanvas,text='H: '+ weather.daytemperature+'℃'+' L: '+ weather.nighttemperature+'℃',bg='white')
-            self.win1_temperature['font'] = tkFont.Font(size=20)
-            self.win1_temperature.place(x=280, y=90, width=300, height=25)
-            # 湿度信息
-            self.win1_humidity_label = tk.Label(self.myfavcanvas, text='湿度：'+ weather.humidity, anchor='w',bg='white')
-            self.win1_humidity_label['font'] = tkFont.Font(size=15)
-            self.win1_humidity_label.place(x=180, y=120, width=100, height=25)
-            self.win1_humidity = tk.Label(self.myfavcanvas,text='{}'.format(weather.humidity),bg='white')
-            self.win1_humidity['font'] = tkFont.Font(size=20)
-            self.win1_humidity.place(x=280, y=120, width=300, height=25)
-            # 风力风向信息 
-            self.win1_wind_label = tk.Label(self.myfavcanvas, text='风向：', anchor='w',bg='white')
-            self.win1_wind_label['font'] = tkFont.Font(size=15)
-            self.win1_wind_label.place(x=180, y=150, width=100, height=25)
-            self.win1_wind = tk.Label(self.myfavcanvas,text='{}'.format(weather.wind),bg='white')
-            self.win1_wind['font'] = tkFont.Font(size=20)
-            self.win1_wind.place(x=280, y=150, width=300, height=25)
-            # 白天天气信息
-            self.win1_dayweather_label = tk.Label(self.myfavcanvas, text='天气：', anchor='w',bg='white')
-            self.win1_dayweather_label['font'] = tkFont.Font(size=15)
-            self.win1_dayweather_label.place(x=180, y=180, width=100, height=25)
-            self.win1_dayweather = tk.Label(self.myfavcanvas,text='{}'.format(weather.dayweather),bg='white')
-            self.win1_dayweather['font'] = tkFont.Font(size=20)
-            self.win1_dayweather.place(x=280, y=180, width=300, height=25)
+            # ------------------------------
+            # 根据用户选择的城市显示各个天气信息(略)
+            # ------------------------------ 
             # 画气温变化图
             self.draw_tempreture(self.myfavcanvas, weatherget)
-
-        # 如果选择的城市是国际类的天气信息
-        elif self.my_favorite_city.get_classofcity(self.my_fav_city.get()) == 'GlobalWeather':
-            # 获取城市代码
-            citylat, citylon = self.my_favorite_city.get_city_latlon(self.my_fav_city.get())
-            # 获取天气信息
-            weatherget = GlobalWeatherGet(citylat, citylon)
-            weather = weatherget.get_weather()
-            # 将当天温度信息用大字显示在x = 20，y = 60的位置
-            self.win1_temperature_label0 = tk.Label(self.myfavcanvas, text='温度',bg='white')
-            self.win1_temperature_label0['font'] = tkFont.Font(size=20)
-            self.win1_temperature_label0.place(x=20, y=60, width=160, height=25)
-            self.win1_temperature = tk.Label(self.myfavcanvas,text='{}'.format(weather.temp_max),bg='white')
-            self.win1_temperature['font'] = tkFont.Font(size=50)
-            self.win1_temperature.place(x=20, y=90, width=160, height=115)
-            # 在x = 140处画一条黑线，分割左右
-            self.win1_line = tk.Label(self.myfavcanvas, text='‘',bg='black')
-            self.win1_line.place(x=200, y=60, width=1, height=145)
-            # 将天气信息用label的形式显示在x = 140，y = 60的位置
-            self.win1_date_label = tk.Label(self.myfavcanvas, text='日期：', anchor='w',bg='white')
-            self.win1_date_label['font'] = tkFont.Font(size=15)
-            self.win1_date_label.place(x=220, y=60, width=100, height=20)
-            self.win1_date = tk.Label(self.myfavcanvas,text='{}'.format(weather.time),bg='white')
-            self.win1_date['font'] = tkFont.Font(size=15)
-            self.win1_date.place(x=320, y=60, width=280, height=20)
-            # 温度信息
-            self.win1_temperature_label = tk.Label(self.myfavcanvas, text='温度：', anchor='w',bg='white')
-            self.win1_temperature_label['font'] = tkFont.Font(size=10)
-            self.win1_temperature_label.place(x=220, y=80, width=100, height=20)
-            self.win1_temperature = tk.Label(self.myfavcanvas,text=str(weather.temp_min)+'℃'+'~'+ str(weather.temp_max)+'℃',bg='white')
-            self.win1_temperature['font'] = tkFont.Font(size=15)
-            self.win1_temperature.place(x=320, y=80, width=280, height=20)
-            # 体感温度信息
-            self.win1_feels_like_label = tk.Label(self.myfavcanvas, text='体感温度：', anchor='w',bg='white')
-            self.win1_feels_like_label['font'] = tkFont.Font(size=10)
-            self.win1_feels_like_label.place(x=220, y=100, width=100, height=20)
-            self.win1_feels_like = tk.Label(self.myfavcanvas,text=str(weather.feels_like)+'℃',bg='white')
-            self.win1_feels_like['font'] = tkFont.Font(size=15)
-            self.win1_feels_like.place(x=320, y=100, width=280, height=20)
-            # 压强信息
-            self.win1_pressure_label = tk.Label(self.myfavcanvas, text='压强：', anchor='w',bg='white')
-            self.win1_pressure_label['font'] = tkFont.Font(size=15)
-            self.win1_pressure_label.place(x=220, y=120, width=100, height=20)
-            self.win1_pressure = tk.Label(self.myfavcanvas,text=str(weather.pressure),bg='white')
-            self.win1_pressure['font'] = tkFont.Font(size=15)
-            self.win1_pressure.place(x=320, y=120, width=280, height=20)
-            # 湿度信息
-            self.win1_humidity_label = tk.Label(self.myfavcanvas, text='湿度：', anchor='w',bg='white')
-            self.win1_humidity_label['font'] = tkFont.Font(size=15)
-            self.win1_humidity_label.place(x=220, y=140, width=100, height=20)
-            self.win1_humidity = tk.Label(self.myfavcanvas,text=str(weather.humidity),bg='white')
-            self.win1_humidity['font'] = tkFont.Font(size=15)
-            self.win1_humidity.place(x=320, y=140, width=280, height=20)
-            # 天气描述信息
-            self.win1_description_label = tk.Label(self.myfavcanvas, text='天气：', anchor='w',bg='white')
-            self.win1_description_label['font'] = tkFont.Font(size=10)
-            self.win1_description_label.place(x=220, y=160, width=100, height=20)
-            self.win1_description = tk.Label(self.myfavcanvas,text='{}'.format(weather.description),bg='white')
-            self.win1_description['font'] = tkFont.Font(size=15)
-            self.win1_description.place(x=320, y=160, width=280, height=20)
-            # 风向信息
-            self.win1_wind_label = tk.Label(self.myfavcanvas, text='风向：', anchor='w',bg='white')
-            self.win1_wind_label['font'] = tkFont.Font(size=15)
-            self.win1_wind_label.place(x=220, y=180, width=100, height=20)
-            self.win1_wind = tk.Label(self.myfavcanvas,text='{}'.format(weather.wind),bg='white')
-            self.win1_wind['font'] = tkFont.Font(size=15)
-            self.win1_wind.place(x=320, y=180, width=280, height=20)
-            # 画气温变化图
-            self.draw_international_tempreture(self.myfavcanvas, weatherget)
+        elif :
+            # .............................  
         else:
             messagebox.showinfo('提示', '无法获取天气信息')
-
         # 选择的语言
         if self.language == 'chinese':
             self.chinese()
