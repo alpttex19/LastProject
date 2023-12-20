@@ -1,0 +1,3 @@
+Weather 阿图什市 653001
+GlobalWeather Beijing 39.907501 116.397232
+Weather 西城区 110102

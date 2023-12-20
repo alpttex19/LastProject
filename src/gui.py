@@ -12,7 +12,8 @@ NOTE: the GUI is based on the tkinter
 import tkinter as tk
 from tkinter import ttk, font as tkFont
 from tkinter import Canvas, Scrollbar, Frame
-import datetime
+import datetime, time
+import threading
 from tkinter import messagebox
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
@@ -97,19 +98,35 @@ class WeatherGUI:
         # 默认窗口选择 国内
         self.national()
         self.root.mainloop()  # 进入主循环
+    
+    def get_local_weather(self):
+        self.weather_get = WeatherGet(self.city_code[self.city.get()]['adcode'])
+        self.date.set(self.weather_get.datelist[0])
+        self.weather = self.weather_get.get_weather(self.date.get())
+
+    def get_global_weather(self):
+        self.citylat, self.citylon = citys_lat_lon(self.international_countrys, self.countryfullnames[self.country.get()], self.country2city.get())
+        self.globalweather_get = GlobalWeatherGet(self.citylat, self.citylon)
+        self.international_time.set(self.globalweather_get.timelist[0])
+        self.globalweather = self.globalweather_get.get_weather(self.international_time.get())
 
     def update_weather(self):
         """
         update the weather information every 10 minutes
         """
-        self.weather_get = WeatherGet(self.city_code[self.city.get()]['adcode'])
-        self.date.set(self.weather_get.datelist[0])
-        self.weather = self.weather_get.get_weather(self.date.get())
-
-        self.citylat, self.citylon = citys_lat_lon(self.international_countrys, self.countryfullnames[self.country.get()], self.country2city.get())
-        self.globalweather_get = GlobalWeatherGet(self.citylat, self.citylon)
-        self.international_time.set(self.globalweather_get.timelist[0])
-        self.globalweather = self.globalweather_get.get_weather(self.international_time.get())
+        # 开始计时
+        start_time = time.time() 
+            # 创建线程
+        thread1 = threading.Thread(target=self.get_local_weather(), args=(self,))
+        thread2 = threading.Thread(target=self.get_global_weather(), args=(self,))
+        # 启动线程
+        thread1.start()
+        thread2.start()
+        # 等待所有线程完成
+        thread1.join()
+        thread2.join()
+        end_time = time.time()
+        print("请求天气信息时间:{:.2f} 秒".format(end_time - start_time))
         # 更新数据后，设置一个定时器在1小时后再次更新数据
         self.root.after(600000, self.update_weather)  # 600000毫秒 = 10 min
         # 更新上次更新的时间
@@ -238,13 +255,9 @@ class WeatherGUI:
         the city combobox selected event, update the weather information according to the selected city
         """
         self.citysearch_entry.delete(0, tk.END) # 清空搜索框中的内容
-        selected_date = self.date.get()  # 获取当前选择的日期
-        city_name = self.city.get()  # 获取用户选择的新城市名
-        # 使用天气 API 获取新的天气信息
-        self.weather_get = WeatherGet(self.city_code[city_name]['adcode'])
-        new_weather = self.weather_get.get_weather(selected_date)
+        self.get_local_weather()  # 获取当前选择的城市天气信息
         # 更新 GUI 显示的天气信息
-        self.update_weather_info(new_weather)
+        self.update_weather_info(self.weather)
     
     # 日期下拉框选择事件
     def date_combobox_selected(self, event):
@@ -442,9 +455,7 @@ class WeatherGUI:
         """
         self.international_city_combobox['values'] = list(national_citys(self.international_countrys, self.countryfullnames[self.country.get()])) # 根据选定的城市列表更新城市下拉框
         self.country2city.set(list(national_citys(self.international_countrys, self.countryfullnames[self.country.get()]))[0])
-        self.citylat, self.citylon = citys_lat_lon(self.international_countrys, self.countryfullnames[self.country.get()], self.country2city.get())
-        self.globalweather_get = GlobalWeatherGet(self.citylat, self.citylon)
-        self.globalweather = self.globalweather_get.get_weather(self.international_time.get())
+        self.get_global_weather()
         self.international_weather_update()
         self.draw_international_tempreture(self.secondcanvas, self.globalweather_get)
 
@@ -452,9 +463,7 @@ class WeatherGUI:
         """
         the international city combobox selected event, update the weather information according to the selected international city
         """
-        self.citylat, self.citylon = citys_lat_lon(self.international_countrys, self.countryfullnames[self.country.get()], self.country2city.get())
-        self.globalweather_get = GlobalWeatherGet(self.citylat, self.citylon)
-        self.globalweather = self.globalweather_get.get_weather(self.international_time.get())
+        self.get_global_weather()
         self.international_weather_update()
         self.draw_international_tempreture(self.secondcanvas, self.globalweather_get)
     
@@ -521,11 +530,11 @@ class WeatherGUI:
         a.grid(True, axis='y')
         # 创建一个可滚动的画布
         scroll_canvas = Canvas(tmp_canvas)
-        scroll_canvas.place(x=50, y=220, width=500, height=200)
+        scroll_canvas.place(x=50, y=220, width=500, height=210)
 
         # 创建一个滚动条
         scrollbar = Scrollbar(tmp_canvas, orient="horizontal", command=scroll_canvas.xview, width = 30)
-        scrollbar.place(x=50, y=430, width=500, height=20)
+        scrollbar.place(x=50, y=440, width=500, height=20)
         #scrollbar.pack(side="bottom", fill="x")
 
         # 将滚动条连接到画布
@@ -636,7 +645,7 @@ class WeatherGUI:
             self.win1_temperature_label0['font'] = tkFont.Font(size=15)
             self.win1_temperature_label0.place(x=10, y=60, width=120, height=30)
             self.win1_temperature = tk.Label(self.myfavcanvas,text='{}'.format(weather.daytemperature),bg='white')
-            self.win1_temperature['font'] = tkFont.Font(size=100)
+            self.win1_temperature['font'] = tkFont.Font(size=80)
             self.win1_temperature.place(x=20, y=90, width=120, height=115)
             # 在x = 140处画一条黑线，分割左右
             self.win1_line = tk.Label(self.myfavcanvas, text=' ',bg='black')
@@ -691,7 +700,7 @@ class WeatherGUI:
             self.win1_temperature_label0['font'] = tkFont.Font(size=20)
             self.win1_temperature_label0.place(x=20, y=60, width=160, height=25)
             self.win1_temperature = tk.Label(self.myfavcanvas,text='{}'.format(weather.temp_max),bg='white')
-            self.win1_temperature['font'] = tkFont.Font(size=50)
+            self.win1_temperature['font'] = tkFont.Font(size=40)
             self.win1_temperature.place(x=20, y=90, width=160, height=115)
             # 在x = 140处画一条黑线，分割左右
             self.win1_line = tk.Label(self.myfavcanvas, text='‘',bg='black')

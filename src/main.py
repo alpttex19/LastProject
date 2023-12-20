@@ -36,16 +36,19 @@ If you can achieve the following advanced functions, it will be an extra point. 
     4.多语言支持：课根据用户偏好，切换应用中英文显示。
 """
 
-
+import time
 from gui import WeatherGUI
 from Readfiles import *
 
 
 def main():
     try:
+        start = time.time()
         international_countrys = international_country_info() # international city list
         cn_citys = national_city_info()                       # china city list
         countryfullnames = national_city_list()               # china city full name list
+        end = time.time()
+        print('加载数据时间 {:.2f} 秒'.format(end - start))
         WeatherGUI(cn_citys, international_countrys, countryfullnames)
 
     except Exception as e:

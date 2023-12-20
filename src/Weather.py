@@ -243,9 +243,9 @@ class MyFavoriteCity:
     def __init__(self):
         print('---------------initialize favorite city info------------------')
         self.weathers = []
-        with open('../cityinfo/favorcity.txt', 'r', encoding='utf-8') as f:
+        with open('./cityinfo/favorcity.txt', 'r', encoding='utf-8') as f:
             # if the file is empty, return directly
-            if os.stat('../cityinfo/favorcity.txt').st_size == 0:
+            if os.stat('./cityinfo/favorcity.txt').st_size == 0:
                 pass
             else:
                 for line in f.readlines():
@@ -308,7 +308,7 @@ class MyFavoriteCity:
     # 当类要销毁时，将数据写入文件
     def __del__(self):
         print('---------------saving the favorite city info------------------')
-        with open('../cityinfo/favorcity.txt', 'w', encoding='utf-8') as f:
+        with open('./cityinfo/favorcity.txt', 'w', encoding='utf-8') as f:
             for cityinfo in self.weathers:
                 if cityinfo['class'] == 'Weather':
                     f.write(cityinfo['class'] + ' ' + cityinfo['cityname'] + ' ' + str(cityinfo['code']) + '\n')

@@ -1,2 +1,0 @@
-Weather 北京市 110000
-GlobalWeather Beijing 39.907501 116.397232

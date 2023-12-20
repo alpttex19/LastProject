@@ -21,7 +21,7 @@ def national_city_info()->dict:
     """
     city_info = {}
     # read the city name, adcode and citycode from the file city_codes.txt
-    with open('../cityinfo/city_codes.txt', 'r', encoding='utf-8') as f:
+    with open('./cityinfo/city_codes.txt', 'r', encoding='utf-8') as f:
         for line in f.readlines():
             line = line.strip()
             if len(line.split()) == 2:
@@ -50,7 +50,7 @@ def international_country_info()->dict:
     """
     national_country_list = {}
     # read the country name and country code from the file national_city_list.txt
-    with open('../cityinfo/city.list.json', 'r', encoding='utf-8') as f:
+    with open('./cityinfo/city.list.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
         for line in data:
             countryname = line['country']
@@ -118,7 +118,7 @@ def national_city_list()->dict:
     :return: a dict, the key is the fullname of the city, the value is the city name
     """
     national_city_list = {}
-    with open('../cityinfo/fullname.txt', 'r', encoding='utf-8') as f:
+    with open('./cityinfo/fullname.txt', 'r', encoding='utf-8') as f:
         for line in f.readlines():
             line = line.strip()
             line = line.split()
